@@ -1,4 +1,4 @@
-# -ReactJS the ES6 Way
+# ReactJS the ES6 Way
 
 Welcome to ReactJS, the ES6 way! My name is Darin Haener, and I'll be taking
 you on a whirlwind introductory tour of ReactJS, and as the course name
