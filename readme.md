@@ -112,10 +112,13 @@ doesn't have a breaking change". Typically when a package author using
 [semver](https://docs.npmjs.com/misc/semver) makes a relatively minor, but
 breaking change to their module, they will bump the minor version. So a
 `0.1.x` package will become `0.2.0`. Let's say that we had a package that was
-at version `0.1.3` and we were using caret ranges. During installation npm
-finds two newer version of this package: `0.1.4` and `0.2.0`. Because we specified
-a carat range, npm will select the `0.1.4` version.
-
+at version `0.1.3` and we were using caret ranges. Our `package.json` might
+look like this:
+```json
+"sass-loader": "^0.1"
+```
+During installation npm finds two newer version of this package: `0.1.4` and
+`0.2.0`. Because we specified a carat range, npm will select the `0.1.4` version.
 
 That's all we are going to cover in this section in regards to npm and semantic
 version, but there is a lot more information about this on the npm [semver](https://docs.npmjs.com/misc/semver)
