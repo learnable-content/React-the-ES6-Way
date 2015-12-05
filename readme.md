@@ -1,130 +1,272 @@
-# What's this npm thing anyways?
+# Development Environment
 
-npm, commonly referred to as "node package manager" is just that. It's a package
-manager for node. Although, npm does *not* stand for "node package manager".
-I won't go into the details of that, but if you'd like to, you can read all
-about it [here](https://docs.npmjs.com/misc/faq#if-npm-is-an-acronym-why-is-it-never-capitalized).
+Let's get your development environment up and running so that we can start
+writing some code shall we?
 
-npm makes it really easy to install, and maintain specific versions of
-JavaScript packages without the old copy and paste that we used to have to do
-back in the "old days".
+## NVM
 
-## Dependencies
+Unlike npm, nvm *is* an acronym and stands for what you think it does(no, not
+nevermind), "Node Version Manager". NVM allows us to have multiple, self
+contained, version of Node running on the same system. While not entirely
+necessary, it is very handy when working on multiple projects that are running
+different version of Node.  It also makes it super easy to install newer
+versions of Node, and since it seems like lately theres a new version released
+every other week, it's a great tool to have. If you don't agree with any of
+this, or just plain can't get it installed, feel free to skip this section, as
+it's not *required* to complete this course.
 
-Application requirements are defined in a file that typically lives in the
-root directory of your application called `package.json`:
+### OS X
 
+The first thing to do is to ensure that you have XCode installed. So open up
+your terminal and type:
+```bash
+$ xcode-select --install
+```
+If it's already installed you'll get an error message that reads something like
+this:
+```bash
+xcode-select: error: command line tools are already installed, use "Software Update" to install updates
+```
+You're good to go and can move on. Otherwise, a window will pop up prompting
+you to install XCode. Go ahead and click install and grab a cup of coffee
+while it downloads and installs.
+
+### Linux
+
+On Linux, you need to make sure you have the `build-essential` and `libssl-dev`
+packages installed:
+```bash
+$ apt-get install build-essential libssl-dev
+```
+
+Once those dependencies are installed, you can go ahead and run the install
+script using either curl or wget:
+```bash
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
+$ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
+```
+
+After the install script runs all you have to do is source it from your shell:
+```bash
+$ . ~/.nvm/nvm.sh
+```
+
+To make it source nvm upon every login just add the following to your `~/.bashrc`,
+`~/.profile`, or `~/.zshrc` file:
+```bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+```
+
+That's it! NVM is now installed. For more information and troubleshooting help
+visit the [NVM Homepage](https://github.com/creationix/nvm)
+
+### Windows
+
+I didn't forget about you Windows users. NVM is actually unavailable on Windows.
+There are a few alternatives:
+  * [nvmw](https://github.com/hakobera/nvmw)
+  * [nvm-windows](https://github.com/coreybutler/nvm-windows)
+  * [nodist](https://github.com/marcelklehr/nodist)
+
+If any of these don't work well for you, don't worry about it, you can just
+use one version of Node.
+
+## Installing Node
+
+For those of you who were able to install NVM, congratulations! Installing
+Node is as easy as this:
+```bash
+$ nvm install 5.1.1
+```
+
+That's it! So go ahead and install Node 5.1.1 and we'll be on our way!
+
+If you weren't able to install NVM, or are using Windows, just go to the
+[Node.js](https://nodejs.org/en/) site and download the installer for the
+latest version and install it.
+
+## Installing npm
+
+You're done already. npm is installed alongside Node. Woohoo!
+
+## Installing React
+
+Next we're going to go ahead and get React installed. As of React 0.14, it
+is broken up into several modules. `React` and `ReactDOM` are the two major
+ones, and what we will start with.
+
+But first we need to create a folder for our app so we have a place to store
+all of this stuff. Go into whatever directory you like to store all of your code
+in and make a new directory inside of that one:
+```bash
+$ mkdir react-reading-time
+```
+
+By the way, we'll be making a small reusable React component in this tutorial
+that will show estimated reading time for an atricle. Neat eh?
+
+Now let's cd into that directory and create a boilerplate `package.json` file:
+```bash
+$ cd react-reading-time
+$ npm init --yes
+```
+Using the `--yes` flag just skips all prompts and uses the defaults to
+initialize the `package.json` file.
+
+After this is done we can install `React` and `ReactDOM`:
+```bash
+$ npm install --save-dev react react-dom
+```
+
+You'll notice that we added the `--save-dev` flag. This tells npm to add both of
+those packages to the `devDependencies` section of our `package.json` file.
+We're saving it as a development dependency because this little module will
+likely be a part of a bigger application that will already have React installed.
+
+Great! React is now installed and all we need to do now is install a few more
+packages and get our development server up and running!
+
+## Development server
+
+In order to get our development server up and running we're going to have to
+install a few modules, and create a couple of new files. Let's start by
+installing a few things.
+
+### Webpack
+
+We're going to use [Webpack](https://webpack.github.io/) to handle the
+transpiling of our code from ES6 to ES5(via Babel), bundling of all of our
+code into one nice package, and to run our hot-reloading development server.
+If you aren't familiar with the term `hot-reloading`, it simply means that
+any changes we make to our JavaScript or CSS files(that Webpack knows about
+and is including in the bundle) will be automatically transpiled, updated
+in the bundle, and hot reloaded in the browser without us having to reload
+the webpage to see our changes. Now THAT is awesome stuff.
+
+Let's begin by installing Webpack. We will be installing Webpack globally
+so that we have access to the Command Line Tools. We do that by using the
+`-g` flag:
+```bash
+$ npm install -g webpack
+```
+
+#### Install Global?!?!
+
+Whoa, whoa, whoa, wait a minute. What's this `install global` stuff mean
+anyways? Up until now we've been installing all of our packages locally,
+meaning that npm fetches the modules, and installs them in the `/node_modules`
+directory in the root of our app. This is great for modules that *only* our app
+is dependent on, or modules that don't have a [CLI](https://en.wikipedia.org/wiki/Command-line_interface),
+but for things like Webpack or Grunt this is necessary.
+
+
+### Babel
+
+Ok now that we have that all cleared up let's move on and install all of the
+Babel dependencies we will need:
+```bash
+$ npm install --save-dev babel babel-core babel-loader
+```
+
+Great! Babel and all of the dependencies related to Babel have been installed.
+But wait a minute! At the end of the install npm complained in big bright red
+letters: `UNMET PEER DEPENDENCY webpack@^1.0.0`. But we just installed Webpack
+didn't we? We did! But if you'll remember we installed it globally. When npm
+was resolving [peer dependencies](https://docs.npmjs.com/files/package.json#peerdependencies)
+it detected that we didn't have Webpack installed anywhere in our `node_modules`
+directory, and we don't, so let's install it locally now.
+```bash
+$ npm install --save-dev webpack
+```
+
+#### Peer Dependencies?!?!
+
+Wait up a second, now what's a peer dependency? Simply stated, it's a module
+that has code that is needed for the parent module to run properly, but shouldn't
+necessarily be included with the module. For instance, if you're writing a reusable
+React component that you would like to publish on npm for the whole world to
+use, it's not really a great idea to include React as a dependency. It's
+inferred that the person using this module is already going to have React
+installed in their project, and therefore not necessary to include in the
+dependency tree.
+
+### Webpack Dev Server and React Hot Loader
+
+These are the two pieces that allow us to do the hot-reloading that we were
+talking about earlier. Let's go ahead and install them:
+```bash
+$ npm install --save-dev webpack-dev-server react-hot-loader
+```
+
+### Configure the server
+
+In order to configure the server we're going to have to create a configuration
+file for Webpack. This isn't a Webpack class, so I won't go into the details.
+First create a directory for our example application, and create the config file:
+```bash
+$ mkdir example
+$ cd example
+$ touch webpack.config.js
+```
+
+Now open up that file and copy the following code in:
 ```json
-{
-  "name": "My Cool App",
-  "version": "1.0.0",
-  "description": "The most awesome nebulous app ever made",
-  "author": "Tony Stark <foo@bar.com> (https://github.com/i-am-fictitious)",
-  "license": "ISC",
-  "devDependencies": {
-    "react-hot-loader": "1.3.0",
-    "webpack": "1.12.6",
-    "webpack-dev-server": "1.12.1"
+var webpack = require('webpack');
+
+module.exports = {
+  entry: {
+    'react-reading-time': [
+      'webpack-dev-server/client?http://localhost:8881/',
+      'webpack/hot/only-dev-server',
+      './example/react-reading-time.jsx'
+    ]
   },
-  "dependencies": {
-    "babel-cli": "6.2.0",
-    "babel-core": "6.1.21",
-    "babel-loader": "6.2.0",
-    "babel-polyfill": "^6.2.0",
-    "babel-preset-es2015": "6.1.18",
-    "babel-preset-react": "6.1.18",
-    "babel-preset-stage-0": "6.1.18",
-    "babel-runtime": "6.1.18",
-    "css-loader": "^0.23.0",
-    "express": "4.13.3",
-    "extract-text-webpack-plugin": "^0.9.1",
-    "history": "~1.13.1",
-    "node-sass": "^3.4.2",
-    "normalize.css": "^3.0.3",
-    "react": ">=0.14.2",
-    "react-dom": ">=0.14.2",
-    "sass-loader": "^3.1.2",
-    "style-loader": "^0.13.0"
-  }
-}
+  output: {
+    path: __dirname,
+    filename: "[name].js",
+    publicPath: 'http://localhost:8881/',
+    chunkFilename: '[id].chunk.js',
+    sourceMapFilename: '[name].map'
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.es6'],
+    modulesDirectories: ['node_modules']
+  },
+  module: {
+    loaders: [
+      { test: /\.jsx$|\.es6$|\.js$/, loaders: ['react-hot', 'babel-loader?stage=0'], exclude: /node_modules/ },
+      { test: /\.scss$|\.css$/, loader: 'style-loader!style!css!sass' },
+      { test: /\.(jpe?g|png|gif)$/i, loader: 'url?limit=10000!img?progressive=true' }
+    ]
+  },
+  plugins: [
+    new webpack.NoErrorsPlugin()
+  ],
+  devtool: "eval-source-map"
+};
 ```
 
-There are two major sections where we define our dependencies: `dependencies`
-and `devDependencies`. The `dependencies` section defines everything that
-our app needs during *run time*, while the `devDependencies` section defines
-all of the modules we need during *development*. It also includes some
-ancillary information that is needed if we are going to push our package up to npm.
-
-## Semantic Versioning
-
-npm uses [semantic versioning](http://semver.org/) in all of their modules
-to make is easier to get the newest version of a module without breaking
-your application code. They also have their own set of conventions and
-special characters that are used in `package.json` dependencies to allow you
-more fine grained control over how package versions are selected and installed.
-
-
-## [Ranges](https://docs.npmjs.com/misc/semver#ranges)
-
-We'll start with the more obvious `>=`. It simply means "install the newest
-version of this package that has at least this version number". You can also
-use other operators such as `>`, `<`, `=`, and `<=`. They all do exactly what
-you think they do. Pretty simple eh? Well it doesn't end there...
-
-## [Tilde Ranges](https://docs.npmjs.com/misc/semver#tilde-ranges-1-2-3-1-2-1)
-
-Let's take a look at the `history` entry in our `package.json` file:
+Awesome! We've got our Webpack configuration in place. Now let's add some scripting
+commands to our `package.json` file so we can easily start it up. Open up `package.json`
+and add the following line in the `scripts` object:
 ```json
-"history": "~1.13.1"
+"start": "webpack-dev-server --config ./example/webpack.config.js --hot --port 8881",
 ```
-This is called [tilde ranges](https://docs.npmjs.com/misc/semver#tilde-ranges-1-2-3-1-2-1),
-and means that it allows the version number to change based on whether or not
-the patch or minor version number is specified. In our current setup, any
-version greater than or equal to `1.13.1` or less than `1.14.0` will be
-an acceptable package. Now, had we specified it this way:
-```json
-"history": "~1.13"
+
+This will give us the `npm start` command which we can use to fire up our development
+server.
+
+Now we can fire up our development server. Let's give it a shot:
+```bash
+$ npm start
 ```
-then the rules change. In this scenario, npm will accept anything that is
-greater than or equal to `1.13.0` and less than `1.14.0`. Again, if we remove
-one more level of versioning in our dependency:
-```json
-"history": "~1"
-```
-the rules change yet again. Here, npm will accept any version that is greater
-than or equal to `1.0` and less than or equal to `2.0`.
 
-## [Caret Ranges](https://docs.npmjs.com/misc/semver#caret-ranges-1-2-3-0-2-5-0-0-4)
+You should see Webpack initialize and try to compile our bundle. It's going to
+complain and tell you that it can't find `example/react-reading-time.jsx`, and
+that's ok because we haven't created that file yet! We'll be doing that shortly!
 
-Next we'll take a quick peek at the [caret ranges](https://docs.npmjs.com/misc/semver#caret-ranges-1-2-3-0-2-5-0-0-4)
-that are seen in our `package.json` file:
-```json
-"sass-loader": "^3.1.2"
-```
-From npm:
-> Allows changes that do not modify the left-most non-zero digit in
-> the [major, minor, patch] tuple. In other words, this allows patch and minor
-> updates for versions 1.0.0 and above, patch updates for versions 0.X >=0.1.0,
-> and no updates for versions 0.0.X.
+## Next lesson.....
 
-Essentially, this means "give me the newest version of this package that
-doesn't have a breaking change". Typically when a package author using
-[semver](https://docs.npmjs.com/misc/semver) makes a relatively minor, but
-breaking change to their module, they will bump the minor version. So a
-`0.1.x` package will become `0.2.0`. Let's say that we had a package that was
-at version `0.1.3` and we were using caret ranges. Our `package.json` might
-look like this:
-```json
-"sass-loader": "^0.1"
-```
-During installation npm finds two newer version of this package: `0.1.4` and
-`0.2.0`. Because we specified a carat range, npm will select the `0.1.4` version.
-
-That's all we are going to cover in this section in regards to npm and semantic
-version, but there is a lot more information about this on the npm [semver](https://docs.npmjs.com/misc/semver)
-page if you'd like to dive into it a little deeper.
-
-## Next lesson...
-
-Let's get our development environment setup so we can finally get started
-with some code...
+Phew! After a whirlwind tour of npm and Webpack, we're ready to create a few
+more files that we need to get our application going....
