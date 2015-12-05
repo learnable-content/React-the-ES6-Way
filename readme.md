@@ -47,12 +47,11 @@ root directory of your application called `package.json`:
 }
 ```
 
-As you can see, the `package.json` files not only specifically says what
-JavaScript modules we need to run our application in the `dependencies`
-section, but it also includes the modules that aren't needed at run-time,
-but we need in order to develop our application, in the `devDependencies`
-section. It also includes some ancillary information that is needed if we
-are going to push our package up to npm.
+There are two major sections where we define our dependencies: `dependencies`
+and `devDependencies`. The `dependencies` section defines everything that
+our app needs during *run time*, while the `devDependencies` section defines
+all of the modules we need during *development*. It also includes some
+ancillary information that is needed if we are going to push our package up to npm.
 
 Let's now dive into what some of the weird characters and squiggly lines
 that you see in front of some of the version numbers mean.
