@@ -9,7 +9,7 @@ Meaning that it is only used on the "View" layer in web applications. This
 allows it to be narrowly focused on doing one thing and doing it well.
 
 React uses many innovative technologies to create a fast, modular, and
-easy to use framework. 
+easy to use framework.
 
 ## The Virtual DOM
 
@@ -20,10 +20,24 @@ We'll be discussing this in more detail later.
 ## ES6
 
 Hopefully, if you're taking this course, you've made yourself at least a little
-bit familiar with the newest JavaScript specification call ECMAScript 2015,
+bit familiar with the newest JavaScript specification called ECMAScript 2015,
 or ES6 for short. We'll be using ES6 to create our React components in this
 class, because it's awesome, and makes programming in JavaScript even more
-fun. 
+fun.
+
+ES6 allows you do to neat things like create classes:
+
+```es6
+import React from 'react'
+
+class MyComponent extends React.Component {
+  ...
+}
+```
+
+As you can see you can also easily import modules, and inherit from other
+classes! Awesome stuff, and we'll be using these new idioms to make our
+components clean and easy to code.
 
 Because it's not fully supported in browsers just yet, we'll have to use
 [Babel](https://babeljs.io/) to transpile our code down to browser friendly
