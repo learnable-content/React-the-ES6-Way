@@ -5,9 +5,9 @@ writing some code shall we?
 
 ## NVM
 
-Unlike npm, nvm *is* an acronym and stands for what you think it does(no, not
+Unlike npm, NVM *is* an acronym and stands for what you think it does(no, not
 nevermind), "Node Version Manager". NVM allows us to have multiple, self
-contained, version of Node running on the same system. While not entirely
+contained, versions of Node running on the same system. While not entirely
 necessary, it is very handy when working on multiple projects that are running
 different version of Node.  It also makes it super easy to install newer
 versions of Node, and since it seems like lately theres a new version released
@@ -38,6 +38,8 @@ packages installed:
 ```bash
 $ apt-get install build-essential libssl-dev
 ```
+
+### Install NVM
 
 Once those dependencies are installed, you can go ahead and run the install
 script using either curl or wget:
@@ -211,7 +213,7 @@ $ touch webpack.config.js
 ```
 
 Now open up that file and copy the following code in:
-```json
+```js
 var webpack = require('webpack');
 
 module.exports = {
@@ -251,7 +253,15 @@ Awesome! We've got our Webpack configuration in place. Now let's add some script
 commands to our `package.json` file so we can easily start it up. Open up `package.json`
 and add the following line in the `scripts` object:
 ```json
-"start": "webpack-dev-server --config ./example/webpack.config.js --hot --port 8881",
+"start": "webpack-dev-server --config ./example/webpack.config.js --hot --port 8881"
+```
+
+We won't be doing any testing in this tutorial, so go ahead and remove the "test"
+line. Your `scripts` object should now look like this:
+```json
+"scripts": {
+  "start": "webpack-dev-server --config ./example/webpack.config.js --hot --port 8881"
+}
 ```
 
 This will give us the `npm start` command which we can use to fire up our development
