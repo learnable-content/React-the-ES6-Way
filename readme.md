@@ -48,6 +48,7 @@ a great bash terminal installed on your system. If you're using Windows,
 you can certainly use the run of the mill MS-DOS prompt, or you can use
 GitBash, which will be installed if you used the link from above.
 
+## Next lesson...
 
 That's all the tools that we'll need to get started! So let's move on to
 the next section and figure out what this NPM thing is...
