@@ -9,6 +9,8 @@ npm makes it really easy to install, and maintain specific versions of
 JavaScript packages without the old copy and paste that we used to have to do
 back in the "old days".
 
+## Dependencies
+
 Application requirements are defined in a file that typically lives in the
 root directory of your application called `package.json`:
 
@@ -53,12 +55,23 @@ our app needs during *run time*, while the `devDependencies` section defines
 all of the modules we need during *development*. It also includes some
 ancillary information that is needed if we are going to push our package up to npm.
 
-Let's now dive into what some of the weird characters and squiggly lines
-that you see in front of some of the version numbers mean.
+## Semantic Versioning
+
+npm uses [semantic versioning](http://semver.org/) in all of their modules
+to make is easier to get the newest version of a module without breaking
+your application code. They also have their own set of conventions and
+special characters that are used in `package.json` dependencies to allow you
+more fine grained control over how package versions are selected and installed.
+
+
+## [Ranges](https://docs.npmjs.com/misc/semver#ranges)
 
 We'll start with the more obvious `>=`. It simply means "install the newest
-version of this package that has at least this version number". Nothing too
-ground breaking there, but what about this squiggly line business?
+version of this package that has at least this version number". You can also
+use other operators such as `>`, `<`, `=`, and `<=`. They all do exactly what
+you think they do. Pretty simple eh? Well it doesn't end there...
+
+## [Tilde Ranges](https://docs.npmjs.com/misc/semver#tilde-ranges-1-2-3-1-2-1)
 
 Let's take a look at the `history` entry in our `package.json` file:
 ```json
@@ -80,6 +93,8 @@ one more level of versioning in our dependency:
 ```
 the rules change yet again. Here, npm will accept any version that is greater
 than or equal to `1.0` and less than or equal to `2.0`.
+
+## [Caret Ranges](https://docs.npmjs.com/misc/semver#caret-ranges-1-2-3-0-2-5-0-0-4)
 
 Next we'll take a quick peek at the [caret ranges](https://docs.npmjs.com/misc/semver#caret-ranges-1-2-3-0-2-5-0-0-4)
 that are seen in our `package.json` file:
