@@ -10,7 +10,7 @@ JavaScript packages without the old copy and paste that we used to have to do
 back in the "old days".
 
 Application requirements are defined in a file that typically lives in the
-root directory of your application called package.json:
+root directory of your application called `package.json`:
 
 ```json
 {
