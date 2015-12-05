@@ -276,6 +276,9 @@ You should see Webpack initialize and try to compile our bundle. It's going to
 complain and tell you that it can't find `example/react-reading-time.jsx`, and
 that's ok because we haven't created that file yet! We'll be doing that shortly!
 
+You can also visit `localhost:8881` and see the glorious web server in action.
+Although there isn't much to see just yet...
+
 ## Next lesson.....
 
 Phew! After a whirlwind tour of npm and Webpack, we're ready to create a few
