@@ -43,4 +43,7 @@ Because it's not fully supported in browsers just yet, we'll have to use
 [Babel](https://babeljs.io/) to transpile our code down to browser friendly
 ES5.
 
-Buckle up and get ready for some React and ES6 awesomeness!
+## Moving on...
+
+That's it for the introduction! It's time to roll up our sleeves and get to
+learning, so buckle up and get ready for some React and ES6 awesomeness!
