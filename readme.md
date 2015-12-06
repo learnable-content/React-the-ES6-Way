@@ -1,105 +1,151 @@
-# React conventions
+# The ReadingTime component
 
-We've already discussed some React conventions like using `className` in JSX
-attributes. We're going to expand on that briefly just to give you a quick
-overview of how developers in the community organize their code and write
-reusable components.
+Now it's time to start building our main component that will make this
+application do something! WooHoo!
+
+## Props
+
+Up until now we've used the word `props` here and there, but what really
+are these mystical things called `props`? Props are simply properties that
+are passed into a React component for consumption by said component.
+
+```jsx
+<Component prop1='foo' prop2='bar' />
+```
+
+In that short snippet, `prop1` and `prop2` would be available to use in the
+`Component` component.
+
+```jsx
+class Component extends React.Component {
+  render() {
+    return (
+      <div>
+        <span>{this.props.prop1}</span>
+        <span>{this.props.prop2}</span>
+      </div>
+    )
+  }
+}
+```
+
+Easy right? Anything we give to the component as an "HTML attribute" is
+available as a prop in the component.
 
 ## propTypes
 
-We'll go into this in more detail in the next section, but React provides a
-`propTypes` declaration that you can, and **should** use to define what props
-a component should receive, and their types:
-```jsx
-propTypes = {
-  foo: React.PropTypes.boolean,
-  bar: React.PropTypes.string
+We briefly discussed propTypes in the previous section, but let's put it to
+use in real life for our new component. First, create a new file in the `src`
+directory called `reading-time.jsx`. Let's import React and create the
+skeleton for this component, remembering that there must **ALWAYS** be a render
+function in the component.
+
+```es6
+import React from 'react'
+
+export default class ReadingTime extends React.Component {
+  static propTypes = {}
+
+  render() {
+    return (
+      <div></div>
+    )
+  }
 }
 ```
 
-This really helps your code to be self documenting, and will help future
-developers out a lot when it's time for them to work on your codebase.
+Ok great, now we've got an empty React component. The next thing we need to
+do with it is define what propTypes this component will be expecting. One
+thing that we will definitely need to know is how many words per minute we
+expect people to be able to read.
 
-## JSX structure
-
-Making your JSX well formed and structured is essential to writing clean,
-easy to read code.
-
-### Multi-line components
-
-It's good practice to keep JSX elements on separate lines in nested components.
-
-This is bad:
+It looks like we're going to need a number property on this component in order
+to be able to calculate the reading time. Let's go ahead and add this propType:
 ```jsx
-<div><Component1 /><Component2 /></div>
-```
-
-This is better:
-```jsx
-<div>
-  <Component1 />
-  <Component2 />
-</div>
-```
-
-See how much easier to read and reason about the second version is? Always
-put your conponents on their own lines.
-
-### Conditional elements
-
-If you have elements that will be rendered only if a specific condition is
-met, then it's best practice to define those elements in a variable rather
-than putting them inline in the JSX.
-
-Bad:
-```jsx
-render() {
-  return (
-    <div>
-      { window.loggedIn? ? <SecretComponent /> : null }
-    </div>
-  )
+static propTypes = {
+  wordsPerMinute: React.PropTypes.number
 }
 ```
 
-Good:
-```jsx
-render() {
-  let secretComponent
-  if (window.loggedIn?) secretComponent = <SecretComponent />
+> Pro tip: React will raise a warning in the console if one of these props is
+> missing or not the proper type, but will not raise an exception or cause
+> your program to stop running.
 
-  return (
-    <div>
-      {secretComponent}
-    </div>
-  )
+## More ES6 syntax
+
+You might be asking yourself, what's with this `export default` and `static`
+stuff? I thought you'd never ask.
+
+Module support is baked into ES6, and we've already seen how we can *import*
+code into a module that we need, but how do we get code *out* of a module
+that we want to be available to other programs or our application? With
+the `export` keyword of course! Any function, variable, or class that we
+preced with `export` will be available when the module is imported from
+other places in the application, but you have to explicitly ask for it:
+
+```es6
+export add = function(num1, num2) {
+  return num1 + num2
 }
 ```
 
-Again, much nicer, easier to read and reason about. This is only a simple
-contrived example, but you can imagine with more complicated state and
-components this could get really ugly.
+Some time later, in a module far, far, away....
+```es6
+import MathFuncs from 'math'
 
-### Component attribute indentation
-
-When there are more than 3 or so attributes on a component, it is a good
-idea to move them to their own line and use indentation to keep them
-organized:
-```jsx
-<Component
-  show={true}
-  classes='foo bar'
-  otherAttribute='baz'
-/>
+MatchFuncs.add(1, 2)
 ```
 
-## Wrapping up
+This is where the `export default` comes in. If you tell the module to export
+something as the default, that's just what the variable name you define when
+importing becomes, instead of the entire module:
 
-This is by no means an exhaustive list of best practices and conventions,
-but it will get you started on writing good, clean, reusable, maintainable,
-and fun React components.
+```es6
+export default function(num1, num2) {
+  return num1 + num2
+}
+```
+
+Some time much later, in a module much, much farther away....
+```es6
+import add from 'math'
+
+add(1, 2)
+```
+
+See the difference there? Typically in a React application, each component
+module will export only the component class that is created, which is why
+we define the class with the `export default` prefix.
+
+The static keyword is akin to class methods in other languages. It can be
+used to define functions and variables that are available without creating
+a new instance of the class:
+```es6
+class MyClass {
+  static foo = 'This is very, very foo'
+}
+
+MyClass.foo
+-> This is very, very foo
+```
+
+## defaultProps
+
+The next thing we're going want to address is default properties. We **should**
+be able to use this component without anything actually being passed in as
+props. We should define some sensible defaults that make it easy for people to
+use the component without too much configuration.
+
+Add this to your component just below the propTypes declaration we just added:
+```jsx
+static defaultProps = {
+  wordsPerMinute: 270
+}
+```
+
+That's it! Now we have some sensible defaults that we can use in the event that
+someone tries to use our component without giving it any props whatsoever.
 
 ## Next lesson...
 
-Next we'll move on to section three and begin writing the component that
-is going to make this application work!
+Let's move on and start adding some state to our component.
