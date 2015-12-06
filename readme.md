@@ -171,6 +171,12 @@ Babel dependencies we will need:
 $ npm install --save-dev babel babel-core babel-loader
 ```
 
+We'll also need to install the babel preset modules so it knows how to
+transpile all of our code:
+```bash
+$ npm install -s-ave-dev babel-preset-es2015 babel-preset-react babel-preset-stage-0
+```
+
 Great! Babel and all of the dependencies related to Babel have been installed.
 But wait a minute! At the end of the install npm complained in big bright red
 letters: `UNMET PEER DEPENDENCY webpack@^1.0.0`. But we just installed Webpack
