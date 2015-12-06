@@ -1,151 +1,135 @@
-# The ReadingTime component
+# Component constructors and state
 
-Now it's time to start building our main component that will make this
-application do something! WooHoo!
+In React, props are immutable. Meaning you can't change the value of the props
+once the component is created. So how do we got about creating dynamic UI's
+that change? We use state. State is what represents what your application
+UI looks like at any given moment. We define the initial state of our component
+inside the constructor. What's a constructor?!?!?! It's the "initialize"
+function for the class. Any time a new instance of the class is created, the
+constructor is called and passed in any properties that are given during
+initialization.
+```es6
+export default class Component extends React.Component {
+  constructor(props) {
+    super(props)
 
-## Props
-
-Up until now we've used the word `props` here and there, but what really
-are these mystical things called `props`? Props are simply properties that
-are passed into a React component for consumption by said component.
-
-```jsx
-<Component prop1='foo' prop2='bar' />
-```
-
-In that short snippet, `prop1` and `prop2` would be available to use in the
-`Component` component.
-
-```jsx
-class Component extends React.Component {
-  render() {
-    return (
-      <div>
-        <span>{this.props.prop1}</span>
-        <span>{this.props.prop2}</span>
-      </div>
-    )
+    this.state = props
   }
 }
 ```
 
-Easy right? Anything we give to the component as an "HTML attribute" is
-available as a prop in the component.
+What's going on here? Every React component is initialized with props. So when
+you create a component using JSX like this:
+```jsx
+<Component
+  foo='bar'
+  bar='baz'
+/>
+```
 
-## propTypes
+The constructor of that `Component` class receives a JavaScript object literal
+that looks like this:
+```json
+{
+  foo: 'bar',
+  bar: 'baz'
+}
+```
 
-We briefly discussed propTypes in the previous section, but let's put it to
-use in real life for our new component. First, create a new file in the `src`
-directory called `reading-time.jsx`. Let's import React and create the
-skeleton for this component, remembering that there must **ALWAYS** be a render
-function in the component.
+The other thing you may find strange is the `super` function call. What this
+does is it tells the class to call the inherited classes (in this case, the
+React.Component) constructor function with the arguments you give it. When
+using inherited classes it is require that the super method (if being called)
+be called before anything else in the constructor. So here we're just passing
+off the props to React and letting React do what it normally does with them.
+In this case React will assign them to `this.props`. In this contrived example
+we're also assigning the state of the application to the props.
 
+Now let's open up our `ReadingTime` component and add the following
+constructor:
+```es6
+constructor(props) {
+  super(props)
+
+  this.state = {
+    readTime: 0
+  }
+}
+```
+
+For reference, your `ReadingTime` component should now look like this:
 ```es6
 import React from 'react'
 
 export default class ReadingTime extends React.Component {
-  static propTypes = {}
+  static propTypes = {
+    wordsPerMinute: React.PropTypes.number
+  }
+
+  static defaultProps = {
+    wordsPerMinute: 270
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.state = { readTime: 0 }
+  }
 
   render() {
     return (
-      <div></div>
+      <div>Hello ReadingTime!</div>
     )
   }
 }
 ```
 
-Ok great, now we've got an empty React component. The next thing we need to
-do with it is define what propTypes this component will be expecting. One
-thing that we will definitely need to know is how many words per minute we
-expect people to be able to read.
+Excellent! We've created another component! Let's open up our main application
+component and add this component to our app. Open up `example/react-reading-time.jsx`
+and import our component:
+```es6
+import ReadingTime from '../src/reading-time'
+```
 
-It looks like we're going to need a number property on this component in order
-to be able to calculate the reading time. Let's go ahead and add this propType:
-```jsx
-static propTypes = {
-  wordsPerMinute: React.PropTypes.number
+Ok now let's add this component to our view. We'll also add some classes,
+a textarea for writing an article and some default text to put into the textarea.
+Let's just rewrite the entire render function like this:
+```es6
+render() {
+  let defaultText = 'Foo is baz and bar'
+
+  return (
+    <div className='container' style={{ marginTop: '50px' }}>
+      <div data-article className='col-lg-8 col-lg-offset-2 form-group'>
+        <textarea
+          defaultValue={defaultText}
+          className='form-control'
+          style={{ height: '500px', resize: 'none' }}>
+        </textarea>
+      </div>
+      <ReadingTime className='col-lg-2 well' />
+    </div>
+  )
 }
 ```
 
-> Pro tip: React will raise a warning in the console if one of these props is
-> missing or not the proper type, but will not raise an exception or cause
-> your program to stop running.
+Woohoo! We've got our component set to render inside of our main application
+page along with a text area. You'll notice a few things I did there that
+may seem strange. The first one is adding a data attribute to the div that
+holds the textarea. I did this so that later on down the road our `ReadingTime`
+component will have a way to know which container to get the word count from.
 
-## More ES6 syntax
+I also added a style attribute to the element, but it doesn't look like a normal
+style tag that you would add to an HTML. Remember when we talked about JSX,
+and how it's really just JavaScript? Because of that, we have to give the
+style tag a regular old JavaScript object to work with, which it can then
+turn into the proper style tag when rendering the DOM.
 
-You might be asking yourself, what's with this `export default` and `static`
-stuff? I thought you'd never ask.
-
-Module support is baked into ES6, and we've already seen how we can *import*
-code into a module that we need, but how do we get code *out* of a module
-that we want to be available to other programs or our application? With
-the `export` keyword of course! Any function, variable, or class that we
-preced with `export` will be available when the module is imported from
-other places in the application, but you have to explicitly ask for it:
-
-```es6
-export add = function(num1, num2) {
-  return num1 + num2
-}
-```
-
-Some time later, in a module far, far, away....
-```es6
-import MathFuncs from 'math'
-
-MatchFuncs.add(1, 2)
-```
-
-This is where the `export default` comes in. If you tell the module to export
-something as the default, that's just what the variable name you define when
-importing becomes, instead of the entire module:
-
-```es6
-export default function(num1, num2) {
-  return num1 + num2
-}
-```
-
-Some time much later, in a module much, much farther away....
-```es6
-import add from 'math'
-
-add(1, 2)
-```
-
-See the difference there? Typically in a React application, each component
-module will export only the component class that is created, which is why
-we define the class with the `export default` prefix.
-
-The static keyword is akin to class methods in other languages. It can be
-used to define functions and variables that are available without creating
-a new instance of the class:
-```es6
-class MyClass {
-  static foo = 'This is very, very foo'
-}
-
-MyClass.foo
--> This is very, very foo
-```
-
-## defaultProps
-
-The next thing we're going want to address is default properties. We **should**
-be able to use this component without anything actually being passed in as
-props. We should define some sensible defaults that make it easy for people to
-use the component without too much configuration.
-
-Add this to your component just below the propTypes declaration we just added:
-```jsx
-static defaultProps = {
-  wordsPerMinute: 270
-}
-```
-
-That's it! Now we have some sensible defaults that we can use in the event that
-someone tries to use our component without giving it any props whatsoever.
+Let's fire up the server again with `npm start` and visit `localhost:8881/example`
+and see what we've created so far! It's getting more and more exciting by the
+minute!
 
 ## Next lesson...
 
-Let's move on and start adding some state to our component.
+Next we're going to dive into the Virtual DOM and find out how it is that
+React is so good at updating the UI based on the state of the component.
