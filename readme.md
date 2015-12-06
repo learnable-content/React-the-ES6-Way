@@ -1,81 +1,115 @@
-# Your first React Component
+# JSX and you...
 
-Hooray! If you've made it this far, you're ready to do some serious coding
-in React. Congratulations!
+## What is JSX?
 
-## React components and ES6
+Put simply, **JSX allows you to create JavaScript objects using HTML syntax.**
+Expanding on that, Facebook says:
+> [JSX](https://facebook.github.io/jsx/) is a JavaScript syntax extension that
+> looks similar to XML. You can use a simple JSX syntactic transform with React.
 
-We're going to be writing all of our React components using ES6. What this means
-is that all of our components will be ES6 Classes.
-
-From [es6features](https://github.com/lukehoban/es6features#classes) on GitHub:
-
-> ES6 classes are a simple sugar over the prototype-based OO pattern. Having a
-> single convenient declarative form makes class patterns easier to use, and
-> encourages interoperability. Classes support prototype-based inheritance,
-> super calls, instance and static methods and constructors.
-
-By convention, all React components that are created this way *must* inherit
-from the `React.Component` class. Let's make a new file in our `example` directory
-called `react-reading-time.jsx` and add some code to it.
-
-The first thing we need to do is import both the `React` and `ReactDOM` classes.
-Add these lines to the top of that file:
+Remember in the last lesson we created our first component? The render
+method looked like this:
 ```es6
-import React from 'react'
-import ReactDOM from 'react-dom'
-```
-
-It's conventional to include all `import` statements at the top of your file,
-as you can't use anything until you've imported it(plus it makes your component
-files much more neatly organized, and we all want to be good coders and make our
-code nicely organized and easy for other developers to read).
-
-Ok great. Now we've imported the React modules that we'll need, let's start creating
-our component.
-
-Wait a minute! What's the difference between `React` and `ReactDOM`?!?! With the
-most recent release of React, the team over at Facebook decided to split up the
-core application logic and the rendering logic. This decision was largely based
-on the creation of `react-native` and the need for a cross platform rendering
-engine.
-
-So let's go ahead and get started with our component. Let's add the core of
-the component:
-```es6
-class ReactReadingTime extends React.Component {
-  render() {
-    return (
-      React.createElement('div', {className: "container"},
-        "Hello React!"
-      )
+render() {
+  return (
+    React.createElement('div', { className: 'container' },
+      'Hello React!'
     )
-  }
+  )
 }
 ```
 
-Awesome! But what's going on here? As I stated before, **EVERY** React component
-must inherit from the `React.Component` class, and that's what we're doing here.
-Also, *EVERY* React component must have a `render` method that returns the
-React element to be rendered on the page.
-
-### Rendering the component
-
-This is where the `ReactDOM` class comes in. It's time for use to put it to
-use to render our component. At the very bottom of the file, add this:
+We can use JSX to transform that render method to look like this:
 ```es6
-ReactDOM.render(<ReactReadingTime />, document.getElementById('react'))
+render() {
+  return (
+    <div className='container'>
+      Hello React!
+    </div>
+  )
+}
 ```
 
-When using the `render` function, the first argument is the component you would
-like to render. In this case it's our main app component that we just created
-called `ReactReadingTime`. The second argument is the DOM node that you would
-like to attach the component to. Remember in our `index.html` file we created
-that `div` with an id of 'react'. Well that's where this component is going to
-mount. Save this file and let's reload our page at `localhost:8881/example`
-and see what we've got!
+## Why use JSX?
+
+There are several great reason for using JSX over the JavaScript syntax for
+creating React views. More casual developers like designers will be much more
+confortable with JSX, as it is easily regocnizable as HTML. Also, because JSX
+has opening and closing tags like HTML, it makes large trees of UI components
+much, much easier to read and reason about.
+
+## Rendering JSX
+
+React can render either HTML tags or React components. There is an important
+distinction to make however. If you use lowercase letters React will render
+an html tag. So the following:
+```jsx
+ReactDOM.render(<div className='container'></div>, document.getElementById('react'))
+```
+
+Will render the following in the DOM:
+```html
+<div class='container'></div>
+```
+
+However, when you use a **capitalized** tag name when rendering, React will
+attempt to render a component with that name:
+```jsx
+ReactDOM.render(<MyComponent />, document.getElementById('react'))
+```
+
+The above code will render the `MyComponent` class and all of it's children.
+
+## HTML attributes in JSX
+
+You may have noticed that in our above examples we're using `className`
+instead of `class` in our HTML markup. Because JSX is just JavaScript,
+we have to avoid using reserved identifiers such as `class` and `for` in
+our JSX. Instead, we have to use name like `className` and `htmlFor` respectively
+for these attributes.
+
+For a more complete list of JSX gotchas check here:
+https://facebook.github.io/react/docs/jsx-gotchas.html
+
+And for a list of differences between JSX and the DOM check here:
+https://facebook.github.io/react/docs/dom-differences.html
+
+## JavaScript Expressions
+
+It's absolutely possible and acceptable to use JavaScript expressions inside
+of JSX.
+
+### Attribute Expressions
+
+If you'd like some logic inside one of your JSX attributes, simply wrap it in
+curly braces `{}`:
+```jsx
+<div className={this.props.valid ? 'valid' : 'invalid'}></div>
+```
+
+### Boolean attributes
+
+If the value of an attribute is omitted, it is assumed to be true, so the
+following are equivalent:
+```jsx
+<button disabled>Submit</button>
+<button disabled={true}>Submit</button>
+```
+
+### Child expressions
+
+You can also use JavaScript expressions to render children:
+```jsx
+<Nav>{ window.isLoggedIn ? <Dashboard /> : <Login /> }</Nav>
+```
+
+## Wrapping up
+
+JSX is awesome! It allows you to create and render complex components with all
+the ease of writing basic HTML. Good stuff!
 
 ## Next lesson...
 
-Let's move on and discuss what JSX is and how it can help us create nicer
-looking components.
+Now that we know our way around JSX, let's move on to a short discussion of a
+few React conventions that most developers use shall we?
+
