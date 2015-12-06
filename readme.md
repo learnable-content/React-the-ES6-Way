@@ -1,115 +1,105 @@
-# JSX and you...
+# React conventions
 
-## What is JSX?
+We've already discussed some React conventions like using `className` in JSX
+attributes. We're going to expand on that briefly just to give you a quick
+overview of how developers in the community organize their code and write
+reusable components.
 
-Put simply, **JSX allows you to create JavaScript objects using HTML syntax.**
-Expanding on that, Facebook says:
-> [JSX](https://facebook.github.io/jsx/) is a JavaScript syntax extension that
-> looks similar to XML. You can use a simple JSX syntactic transform with React.
+## propTypes
 
-Remember in the last lesson we created our first component? The render
-method looked like this:
-```es6
-render() {
-  return (
-    React.createElement('div', { className: 'container' },
-      'Hello React!'
-    )
-  )
+We'll go into this in more detail in the next section, but React provides a
+`propTypes` declaration that you can, and **should** use to define what props
+a component should receive, and their types:
+```jsx
+propTypes = {
+  foo: React.PropTypes.boolean,
+  bar: React.PropTypes.string
 }
 ```
 
-We can use JSX to transform that render method to look like this:
-```es6
+This really helps your code to be self documenting, and will help future
+developers out a lot when it's time for them to work on your codebase.
+
+## JSX structure
+
+Making your JSX well formed and structured is essential to writing clean,
+easy to read code.
+
+### Multi-line components
+
+It's good practice to keep JSX elements on separate lines in nested components.
+
+This is bad:
+```jsx
+<div><Component1 /><Component2 /></div>
+```
+
+This is better:
+```jsx
+<div>
+  <Component1 />
+  <Component2 />
+</div>
+```
+
+See how much easier to read and reason about the second version is? Always
+put your conponents on their own lines.
+
+### Conditional elements
+
+If you have elements that will be rendered only if a specific condition is
+met, then it's best practice to define those elements in a variable rather
+than putting them inline in the JSX.
+
+Bad:
+```jsx
 render() {
   return (
-    <div className='container'>
-      Hello React!
+    <div>
+      { window.loggedIn? ? <SecretComponent /> : null }
     </div>
   )
 }
 ```
 
-## Why use JSX?
-
-There are several great reason for using JSX over the JavaScript syntax for
-creating React views. More casual developers like designers will be much more
-confortable with JSX, as it is easily regocnizable as HTML. Also, because JSX
-has opening and closing tags like HTML, it makes large trees of UI components
-much, much easier to read and reason about.
-
-## Rendering JSX
-
-React can render either HTML tags or React components. There is an important
-distinction to make however. If you use lowercase letters React will render
-an html tag. So the following:
+Good:
 ```jsx
-ReactDOM.render(<div className='container'></div>, document.getElementById('react'))
+render() {
+  let secretComponent
+  if (window.loggedIn?) secretComponent = <SecretComponent />
+
+  return (
+    <div>
+      {secretComponent}
+    </div>
+  )
+}
 ```
 
-Will render the following in the DOM:
-```html
-<div class='container'></div>
-```
+Again, much nicer, easier to read and reason about. This is only a simple
+contrived example, but you can imagine with more complicated state and
+components this could get really ugly.
 
-However, when you use a **capitalized** tag name when rendering, React will
-attempt to render a component with that name:
+### Component attribute indentation
+
+When there are more than 3 or so attributes on a component, it is a good
+idea to move them to their own line and use indentation to keep them
+organized:
 ```jsx
-ReactDOM.render(<MyComponent />, document.getElementById('react'))
-```
-
-The above code will render the `MyComponent` class and all of it's children.
-
-## HTML attributes in JSX
-
-You may have noticed that in our above examples we're using `className`
-instead of `class` in our HTML markup. Because JSX is just JavaScript,
-we have to avoid using reserved identifiers such as `class` and `for` in
-our JSX. Instead, we have to use name like `className` and `htmlFor` respectively
-for these attributes.
-
-For a more complete list of JSX gotchas check here:
-https://facebook.github.io/react/docs/jsx-gotchas.html
-
-And for a list of differences between JSX and the DOM check here:
-https://facebook.github.io/react/docs/dom-differences.html
-
-## JavaScript Expressions
-
-It's absolutely possible and acceptable to use JavaScript expressions inside
-of JSX.
-
-### Attribute Expressions
-
-If you'd like some logic inside one of your JSX attributes, simply wrap it in
-curly braces `{}`:
-```jsx
-<div className={this.props.valid ? 'valid' : 'invalid'}></div>
-```
-
-### Boolean attributes
-
-If the value of an attribute is omitted, it is assumed to be true, so the
-following are equivalent:
-```jsx
-<button disabled>Submit</button>
-<button disabled={true}>Submit</button>
-```
-
-### Child expressions
-
-You can also use JavaScript expressions to render children:
-```jsx
-<Nav>{ window.isLoggedIn ? <Dashboard /> : <Login /> }</Nav>
+<Component
+  show={true}
+  classes='foo bar'
+  otherAttribute='baz'
+/>
 ```
 
 ## Wrapping up
 
-JSX is awesome! It allows you to create and render complex components with all
-the ease of writing basic HTML. Good stuff!
+This is by no means an exhaustive list of best practices and conventions,
+but it will get you started on writing good, clean, reusable, maintainable,
+and fun React components.
 
 ## Next lesson...
 
-Now that we know our way around JSX, let's move on to a short discussion of a
-few React conventions that most developers use shall we?
-
+Next we'll move on to section three and begin writing the component that
+is going to make this application work!
