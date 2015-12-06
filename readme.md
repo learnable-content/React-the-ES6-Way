@@ -43,6 +43,17 @@ mini application:
 $ mkdir src
 ```
 
+## Config files
+
+We'll need one more configuration file to tell Babel which presets to use
+when transpiling our ES6 and JSX. Create a new file called `.babelrc` in
+our applications root folder and put the following in it:
+```json
+{
+  presets: ['es2015', 'react', 'stage-0']
+}
+```
+
 ## Testing it out
 
 You can now fire up the development server again and test this small piece out!
