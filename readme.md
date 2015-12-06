@@ -45,7 +45,11 @@ the component:
 ```es6
 class ReactReadingTime extends React.Component {
   render() {
-    return <div className='container'>Hello React!</div>
+    return (
+      React.createElement('div', {className: "container"},
+        "Hello React!"
+      )
+    )
   }
 }
 ```
@@ -53,27 +57,7 @@ class ReactReadingTime extends React.Component {
 Awesome! But what's going on here? As I stated before, **EVERY** React component
 must inherit from the `React.Component` class, and that's what we're doing here.
 Also, *EVERY* React component must have a `render` method that returns the
-JSX to be rendered on the page.
-
-Here we go again with these weird terms. What's JSX? Let's take a small detour
-and talk about what the heck this JSX thing is.
-
-### JSX
-
-Facebook says:
-> [JSX](https://facebook.github.io/jsx/) is a JavaScript syntax extension that
-> looks similar to XML. You can use a simple JSX syntactic transform with React.
-
-Without using JSX, the markup for the component that we just created would
-look like this:
-```js
-React.createElement('div', {className: "container"},
-  "Hello React!"
-)
-```
-
-Under the covers, this JSX gets transpiled and ends up looking like that, but
-let's face it, the JSX syntax is **MUCH** nicer to work with.
+React element to be rendered on the page.
 
 ### Rendering the component
 
@@ -90,3 +74,8 @@ like to attach the component to. Remember in our `index.html` file we created
 that `div` with an id of 'react'. Well that's where this component is going to
 mount. Save this file and let's reload our page at `localhost:8881/example`
 and see what we've got!
+
+## Next lesson...
+
+Let's move on and discuss what JSX is and how it can help us create nicer
+looking components.
