@@ -1,59 +1,65 @@
-# Finishing the ReadingTime component
+# Event Handlers
 
-We're going to go ahead and finish up the `ReadingTime` component in this
-lesson and we'll see how updating state makes the UI update.
-
-First we'll need to add some boilerplate code that will count the actual
-words inside of the textarea we created. This code is pretty boring, and
-doesn't have anything to do with React, so we'll just paste it in:
+So far we've built our little app to count the number of words in an existing
+article and display that in our widget. This works, but isn't very exciting
+and doesn't respond to any changes on the page. Let's use some event handlers
+to trigger updates on our `ReadingTime` widget. Open up the `ReactReadingTime`
+component and add an `onChange` handler to the textarea.
 ```es6
-countWords(text) {
-  return text.split(/\s+/).length
-}
+<textarea
+  defaultValue={defaultText}
+  onChange={this.textChanged}
+  className='form-control'
+  style={{ height: '500px', resize: 'none' }}>
+</textarea>
+```
 
-getText(domElement) {
-  let text = '',
-      length = domElement.childNodes.length
+We've just updated the textarea to call a `textChanged` function any time the
+textarea value changes. Ok, so now we need to implement this function. Let's
+add this function at the top of our component:
+```es6
+textChanged = () => {
 
-  for (var i = 0; i < length; i++) {
-    let el = domElement.childNodes[i]
-
-    if (el.nodeType != 8) {
-      if (el.type && el.type.match(/(textarea|input)/)) {
-        text += el.value
-      } else {
-        text += el.nodeType === 3 ? el.nodeValue : this.getText(el)
-      }
-    }
-  }
-
-  return text
 }
 ```
 
-Time for a quick rundown of these functions. The `getText` function simply traverses
-all of the children of the selected DOM element that is passed into the function
-and grabs all the text that is inside of them and concatenates it into one
-long string.
+## Arrow functions
 
-The `countWords` function simply takes a string, splits it wherever there is a
-space and counts how many words there are. Nothing too exciting here, but we
-will need these two functions to get our reading time estimator to work.
+You may notice some funny looking syntax there. What's with this fat arrow
+business `=>`? That's some ES6 syntactical sugar that automatically binds
+that function to `this`. In this case `this` is the entire scopr of the
+component. We run into trouble with `onChange` handlers like that, because
+when the function is fired, it is in the scope of the `textarea` component,
+and we need access to the global component scope. By using an arrow function
+like that, we will now have access to the component's scope. Great!
 
-## Component lifecycles
+## Making the component update
 
-The next thing we need to do is estimate what the reading time is going to be
-for the article that is on the page when the component mounts. We can't
-execute that code in the constructor of the component, because when the
-component is created the DOM has not yet been rendered, so the word count
-would always be zero. We're going to use React's lifecycle hooks to run
-this code immediately after the DOM has been rendered. There are quite a few
-lifecycle hooks available, and you can read all about them [here](https://facebook.github.io/react/docs/component-specs.html#lifecycle-methods).
-For this use case, we'll be using the `componentDidMount` hook, so let's add
-this to our `ReadingTime` component. React convention is to put this function
-immediately after the constructor function and before any other code:
+Ok, so now we've trapped that onChange event, but what do we do with it? We
+need to tell the `ReadingTime` component to update the word count when this
+happens. But how do we communicate with it? React provides a way to do this
+and it's called [refs](https://facebook.github.io/react/docs/more-about-refs.html).
+We can add a "reference" to a component, and then access it's internal
+methods form the parent component. Let's add a ref to the `ReadingTime` component"
 ```es6
-componentDidMount() {
+<ReadingTime ref='readingTime' className='col-lg-2 well' />
+```
+
+So now that we have a reference to the component, we can tell it to update:
+```es6
+textChanged = () => {
+  this.refs.readingTime.updateReadingTime()
+}
+```
+
+When you add a ref to a component, that component is then added to a `refs`
+array on the parent component. So we can access it through `this.refs` and
+then the name of the ref. At this point, we have the instance of the element
+and call tell it to do whatever we want! Now we'll need to implement the
+`updateReadingTime` function in the `ReadingTime` component. Go ahead and open
+that file and let's add it:
+```es6
+updateReadingTime = () => {
   let selector = '[data-article]',
       article = document.querySelector(selector),
       text = this.getText(article),
@@ -64,116 +70,28 @@ componentDidMount() {
 }
 ```
 
-Ok so what's happening here? The first thing we're doing is setting variable
-equal to the DOM selector that we want to use to grab the chunk of the DOM
-that contains the article we're interested in. Remember a few lessons ago
-when we created the textarea, and the containing div had that data attribute
-on it? That's why we put that there.
+That's all we need to do! Now you be able to happily type away and the widget
+will update automatically! Awesome stuff! Of course, because we need to add
+270 words to make the reading time increase by 1 minute, it will take quite
+a few words to make it update. To make it more responsive go ahead and update
+the default `wordsPerMinute` to something much lower (like 1) and watch it
+update right away. Just make sure you move it back up to 270. :)
 
-So we're then selecting that element, passing that element into our `getText`
-function to pull all the text from that container and dump it into a string,
-which will then be assigned to the `text` variable. Then we're just passing
-that into the `countWords` function to get the total word count and assign it
-to the `wordCount` variable. Then it's just a matter of taking that total
-wordcount and dividing it by the `wordsPerMinute` prop that we defined in an
-earlier lesson.
-
-After we've calculated what the reading time is going to be for this article
-it's as simple as setting the state! But we can't just simply update the value
-of `this.state`. We really should treat the component state as if it is
-immutable, and use React's internal methods to update the state. That's why
-we use the `setState` method to set the state. Using this method also triggers
-a DOM update, so React will update the Virtual DOM, perform the diff, and update
-the pieces of the DOM that have changed.
-
-Up until now our component has always said that the reading time is 0.
-Unfortunately, it's still going to, because we only have 5 words in our text
-box. So go ahead and update the `defaultText` variable in the render method
-of the `ReactReadingTime` component to something really, really long, and you
-should see the estimated reading time jump up when the page loads.
-
-You'll notice that you have to refresh the page to get an updated value. This
-is because the `componentDidMount` function will be called once, and only
-once, when the component first mounts. Our hot loader just inserts new code
-into the existing code, and does not cause the component to remount, so we
-have to refresh the page.
-
-If you've done everything right it should work! You won't even see that initial
-value of 0 on the page (although it is actually rendered initially) because
-all of React's updating happens so very fast.
-
-## JSX Spread Operators
-
-We're going to add some classes to our component to help make it look just a
-little bit prettier.
-
-If you'll recall from our `ReactReadingTime` component, when we rendered the
-`ReadingTime` widget, we added some classes to it:
-```jsx
-<ReadingTime className='col-lg-2 well' />
-```
-
-But if you inspect the DOM that it actually rendered, these class names are
-nowhere to be found. This is because those class names are just passed into
-our custom component as `this.props.className` and because we didn't do
-anything with them, they just died there.
-
-We can do the following to add these classes to our markup:
+Let's update the `ReadingTime` widget to make the output look just a bit nicer:
 ```es6
-render() {
-  return (
-    <div className={this.props.className}>
-      <p>
-        Estimated read time:<br /><br />
-        <span>{this.state.readTime}</span>
-      </p>
-    </div>
-  )
-}
+return (
+  <div {...props}>
+    <p>
+      Estimated read time:<br /><br />
+      <span>{this.state.readTime} minutes</span>
+    </p>
+  </div>
+)
 ```
 
-And this will work just fine. The names of the classes in that prop will be
-passed into that div and rendered into the DOM. But what if later we want to
-expand this component and add more props? Then we have to add another attribute
-to that div to pass the new props in. What if we decide to release this module
-into the wild on npm and the end user wants to add custom attributes to this
-component? That's where JSX spread operators come into play. With spread
-operators we can rewrite that like this:
-```es6
-render() {
-  let props = this.props
-
-  return (
-    <div {...props}>
-      ...
-    </div>
-  )
-}
-```
-
-What's going on there? What we're saying here is to take all the props and
-apply them to that div. So if our props looked like this:
-```json
-{
-  className: 'foo',
-  name: 'bar'
-}
-```
-
-Then the component would end up looking like this:
-```es6
-<div className='foo' name='bar'></div>
-```
-
-This allows us to pass in any number of arbitrary props to the component that
-we as the module developers may never think of. It also saves a whole lot of
-typing. :) Which makes for developer happiness.
-
-So if you update your code to use those spread operators, you should have a
-nice well drawn around your reading time widget! We're getting there!
+All we did there was just add the word `minutes` at the end of the reading time
+count.
 
 ## Next lesson...
 
-We've completed 3 sections in this tutorial and are ready to move on to the
-final one and tie all of this together! We'll have a truly reactive application
-and will do some great refactoring... Let's go!!!
+We're almost there! We just need to spend some time cleaning a few things up...
