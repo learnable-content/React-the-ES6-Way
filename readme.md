@@ -1,97 +1,86 @@
-# Event Handlers
+# Refactoring!!
 
-So far we've built our little app to count the number of words in an existing
-article and display that in our widget. This works, but isn't very exciting
-and doesn't respond to any changes on the page. Let's use some event handlers
-to trigger updates on our `ReadingTime` widget. Open up the `ReactReadingTime`
-component and add an `onChange` handler to the textarea.
+There are a few places where we can clean up some of our code and make this
+look just a bit better. You may have noticed that when we added the `onChange`
+handler in the last lesson that we used the exact same code to get a new reading
+time that we did in the `componentDidMount` function. Let's just update the
+`componentDidMount` function to call this new function that we created to
+calculate the reading time:
 ```es6
-<textarea
-  defaultValue={defaultText}
-  onChange={this.textChanged}
-  className='form-control'
-  style={{ height: '500px', resize: 'none' }}>
-</textarea>
-```
-
-We've just updated the textarea to call a `textChanged` function any time the
-textarea value changes. Ok, so now we need to implement this function. Let's
-add this function at the top of our component:
-```es6
-textChanged = () => {
-
+componentDidMount() {
+  this.updateReadingTime()
 }
 ```
 
-## Arrow functions
+Refresh your page and make sure it works. And it does!
 
-You may notice some funny looking syntax there. What's with this fat arrow
-business `=>`? That's some ES6 syntactical sugar that automatically binds
-that function to `this`. In this case `this` is the entire scopr of the
-component. We run into trouble with `onChange` handlers like that, because
-when the function is fired, it is in the scope of the `textarea` component,
-and we need access to the global component scope. By using an arrow function
-like that, we will now have access to the component's scope. Great!
-
-## Making the component update
-
-Ok, so now we've trapped that onChange event, but what do we do with it? We
-need to tell the `ReadingTime` component to update the word count when this
-happens. But how do we communicate with it? React provides a way to do this
-and it's called [refs](https://facebook.github.io/react/docs/more-about-refs.html).
-We can add a "reference" to a component, and then access it's internal
-methods form the parent component. Let's add a ref to the `ReadingTime` component"
+In the last lessong we also added the word `minutes` to our reading time
+output. But what about the case where the number is `1`? That's not going to
+make much sense. We're going to need a little bit of logic to determine
+whether or not to use the pluralized version of minutes or not. Let's add some
+logic in the render method to accomplish this. Update your render method to
+look like this:
 ```es6
-<ReadingTime ref='readingTime' className='col-lg-2 well' />
-```
+render() {
+  let props = this.props,
+      { readTime } = this.state,
+      minutes = readTime === 1 ? 'minute' : 'minutes'
 
-So now that we have a reference to the component, we can tell it to update:
-```es6
-textChanged = () => {
-  this.refs.readingTime.updateReadingTime()
+  return (
+    <div {...props}>
+      <p>
+        Estimated read time:<br /><br />
+        <span>{readTime} {minutes}</span>
+      </p>
+    </div>
+  )
 }
 ```
 
-When you add a ref to a component, that component is then added to a `refs`
-array on the parent component. So we can access it through `this.refs` and
-then the name of the ref. At this point, we have the instance of the element
-and call tell it to do whatever we want! Now we'll need to implement the
-`updateReadingTime` function in the `ReadingTime` component. Go ahead and open
-that file and let's add it:
+Ok so we've introduced a few new concepts that may seem strange here. Let's
+start with this strange looking variable assignment:
 ```es6
-updateReadingTime = () => {
-  let selector = '[data-article]',
-      article = document.querySelector(selector),
-      text = this.getText(article),
-      wordCount = this.countWords(text),
-      readTime = Math.round(wordCount / this.props.wordsPerMinute)
+{ readTime } = this.state
+```
 
-  this.setState({ readTime: readTime })
+This is called `destructuring` and is an ES6 feature that makes assigning
+variables super easy. Remember what our state object looks like:
+```json
+{
+  readTime: 1
 }
 ```
 
-That's all we need to do! Now you be able to happily type away and the widget
-will update automatically! Awesome stuff! Of course, because we need to add
-270 words to make the reading time increase by 1 minute, it will take quite
-a few words to make it update. To make it more responsive go ahead and update
-the default `wordsPerMinute` to something much lower (like 1) and watch it
-update right away. Just make sure you move it back up to 270. :)
+By using the destructuring syntax, you can assign variables to the names of
+the keys in the object, and the variable will receive the value of that key.
+Pretty neat! Now any time we want to use the variable from the state we can
+just type `readTime` instead of `this.state.readTime`. Saves a **lot** of
+typing.
 
-Let's update the `ReadingTime` widget to make the output look just a bit nicer:
+The next thing we should do is change our variable assignment from a `let`
+to a `const`. This just ensures that our variables will not change. Anything
+inside the render method should be immutable, so we can convey that message
+by changes all the assignments to a `const`:
 ```es6
-return (
-  <div {...props}>
-    <p>
-      Estimated read time:<br /><br />
-      <span>{this.state.readTime} minutes</span>
-    </p>
-  </div>
-)
+render() {
+  const props = this.props,
+        { readTime } = this.state,
+        minutes = readTime === 1 ? 'minute' : 'minutes'
+
+  return (
+    <div {...props}>
+      <p>
+        Estimated read time:<br /><br />
+        <span>{readTime} {minutes}</span>
+      </p>
+    </div>
+  )
+}
 ```
 
-All we did there was just add the word `minutes` at the end of the reading time
-count.
+That's it for our refactoring! Our little app is looking pretty good!
 
 ## Next lesson...
 
-We're almost there! We just need to spend some time cleaning a few things up...
+We've got one final lesson, and we're going to fine tune our widget and give
+it a few more defaults...
