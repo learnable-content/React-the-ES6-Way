@@ -125,6 +125,16 @@ and how it's really just JavaScript? Because of that, we have to give the
 style tag a regular old JavaScript object to work with, which it can then
 turn into the proper style tag when rendering the DOM.
 
+Another attribute that was added to the `textarea` that is JSX specific is
+the `defaultValue` attribute. React has the notion of `Controlled` and
+`Uncontrolled` components. When the `value` attribute is set on any type of
+input, it becomes a controlled component, and the value of that input will
+**always** be that value. User interaction will have no effect on it. The only
+way to change the value is through an event handler. In our case, we just
+wanted to set the initial value of the input, which is why we used the
+`defaultValue` attribute instead of the `value` attribute. When there is no
+`value` set on an input, it is an uncontrolled component.
+
 Let's fire up the server again with `npm start` and visit `localhost:8881/example`
 and see what we've created so far! It's getting more and more exciting by the
 minute!
