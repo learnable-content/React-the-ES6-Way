@@ -1,75 +1,76 @@
-# Refactoring!!
+# Sensible defaults and finishing up!!!
 
-There are a few places where we can clean up some of our code and make this
-look just a bit better. You may have noticed that when we added the `onChange`
-handler in the last lesson that we used the exact same code to get a new reading
-time that we did in the `componentDidMount` function. Let's just update the
-`componentDidMount` function to call this new function that we created to
-calculate the reading time:
+We're almost done creating our widget. We just need to wrap up a few more
+things. One thing you may have noticed is that we are using a static selector
+to grab the DOM node where the article lives. This works for our use case, but
+other users may want to use a different selector. What we'll want to do is
+add a prop for this, so that it can be defined. Let's refactor our `ReadingTime`
+component to allow this.
+
+First, we'll add it to the `propTypes`:
 ```es6
-componentDidMount() {
-  this.updateReadingTime()
+static propTypes = {
+  wordsPerMinute: React.PropTypes.number,
+  selector: React.PropTypes.string
 }
 ```
 
-Refresh your page and make sure it works. And it does!
+Then we can add it to the `defaultProps`, and we'll use our current selector
+as the default:
+```es6
+static defaultProps = {
+  wordsPerMinute: 270,
+  selector: '[data-article]'
+}
+```
 
-In the last lessong we also added the word `minutes` to our reading time
-output. But what about the case where the number is `1`? That's not going to
-make much sense. We're going to need a little bit of logic to determine
-whether or not to use the pluralized version of minutes or not. Let's add some
-logic in the render method to accomplish this. Update your render method to
-look like this:
+Ok, so now we've defined the props. Let's update our code to use these props.
+We will only need to update the `updateReadingTime` function to use this
+selector, as that's the only place in our component where the selector is used:
+```es6
+updateReadingTime = () => {
+  let { selector, wordsPerMinute } = this.props,
+      article = document.querySelector(selector),
+      text = this.getText(article),
+      wordCount = this.countWords(text),
+      readTime = Math.round(wordCount / wordsPerMinute)
+
+  this.setState({ readTime: readTime })
+}
+```
+
+Great, now our component is way more flexible, and users can pass in a custom
+selector! You may have noticed that I added in a bit of destructuring there
+too in order to make accessing our variables easier. Gotta love ES6!!
+
+Ok, we're are almost there, I just want to add one more piece to make it just
+a bit more customizable, and to be able to demonstrate one more neat feature
+of destructuring. Let's allow the user to customize the text color inside the
+widget. We'll add one more prop to our `propTypes` and `defaultProps`:
+```es6
+static propTypes = {
+  wordsPerMinute: React.PropTypes.number,
+  selector: React.PropTypes.string,
+  textColor: React.PropTypes.string
+}
+
+static defaultProps = {
+  wordsPerMinute: 1,
+  selector: '[data-article]',
+  textColor: 'blue'
+}
+```
+
+The last thing we need to do is update our render method:
 ```es6
 render() {
-  let props = this.props,
-      { readTime } = this.state,
-      minutes = readTime === 1 ? 'minute' : 'minutes'
-
-  return (
-    <div {...props}>
-      <p>
-        Estimated read time:<br /><br />
-        <span>{readTime} {minutes}</span>
-      </p>
-    </div>
-  )
-}
-```
-
-Ok so we've introduced a few new concepts that may seem strange here. Let's
-start with this strange looking variable assignment:
-```es6
-{ readTime } = this.state
-```
-
-This is called `destructuring` and is an ES6 feature that makes assigning
-variables super easy. Remember what our state object looks like:
-```json
-{
-  readTime: 1
-}
-```
-
-By using the destructuring syntax, you can assign variables to the names of
-the keys in the object, and the variable will receive the value of that key.
-Pretty neat! Now any time we want to use the variable from the state we can
-just type `readTime` instead of `this.state.readTime`. Saves a **lot** of
-typing.
-
-The next thing we should do is change our variable assignment from a `let`
-to a `const`. This just ensures that our variables will not change. Anything
-inside the render method should be immutable, so we can convey that message
-by changes all the assignments to a `const`:
-```es6
-render() {
-  const props = this.props,
+  const { textColor, ...rest } = this.props,
         { readTime } = this.state,
         minutes = readTime === 1 ? 'minute' : 'minutes'
 
   return (
-    <div {...props}>
-      <p>
+    <div {...rest}>
+      <p style={{ color: textColor }}>
         Estimated read time:<br /><br />
         <span>{readTime} {minutes}</span>
       </p>
@@ -78,9 +79,15 @@ render() {
 }
 ```
 
-That's it for our refactoring! Our little app is looking pretty good!
+What I've done here is use the power of ES6 destructuring to be able to grab
+just the variables I need from the props, and then assign the "rest" of them
+to a variable so they can be passed into our components main div. This allows
+us to have some static props that we need to use in our component, but still
+allow other developers to pass in arbitrary props and they will end up on the
+div. Pretty awesome! I also used the `textColor` prop to set the text color
+in our widget.
 
-## Next lesson...
+That's it! We've finished our whirlwind tour of React, and you should now be
+able to go out into the world and write some amazing ReactJS applications!
 
-We've got one final lesson, and we're going to fine tune our widget and give
-it a few more defaults...
+Congratulations!
