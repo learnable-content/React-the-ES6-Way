@@ -34,7 +34,7 @@ You'll also need to ensure that Git is installed on your system. If you are
 running OS X or Linux, then you've already got it so don't sweat it. If you're
 on Windows there is a great solution out there called [Git for Windows](https://git-for-windows.github.io/).
 After installation you'll have Git installed, as well as a GUI Git client,
-*and* Git BASH -- a handy bash emulator providing a *NIX terminal including the `git` command.
+*and* Git BASH -- a handy terminal emulator providing a *NIX command-line interface including the `git` command.
 
 ## The *Dreaded* Command Line
 
