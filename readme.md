@@ -5,8 +5,7 @@ in React. Congratulations!
 
 ## React components and ES6
 
-We're going to be writing all of our React components using ES6. What this means
-is that all of our components will be ES6 Classes.
+We're going to be writing all of our React components as ES6 Classes.
 
 From [es6features](https://github.com/lukehoban/es6features#classes) on GitHub:
 
