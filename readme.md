@@ -31,8 +31,8 @@ The constructor of that `Component` class receives a JavaScript object literal
 that looks like this:
 ```json
 {
-  foo: 'bar',
-  bar: 'baz'
+  "foo": "bar",
+  "bar": "baz"
 }
 ```
 
