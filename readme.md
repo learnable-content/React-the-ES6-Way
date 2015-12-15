@@ -3,8 +3,8 @@
 So far we've built our little app to count the number of words in an existing
 article and display that in our widget. This works, but isn't very exciting
 and doesn't respond to any changes on the page. Let's use some event handlers
-to trigger updates on our `ReadingTime` widget. Open up the `ReactReadingTime`
-component and add an `onChange` handler to the textarea.
+to trigger updates on our `ReadingTime` widget. Open up the `ReadingTime`
+component and add an `onChange` handler to the `textarea`.
 ```es6
 <textarea
   defaultValue={defaultText}
@@ -14,8 +14,8 @@ component and add an `onChange` handler to the textarea.
 </textarea>
 ```
 
-We've just updated the textarea to call a `textChanged` function any time the
-textarea value changes. Ok, so now we need to implement this function. Let's
+We've just updated the textarea to call the component's `textChanged` method any time the
+`textarea` value changes. Ok, so now we need to implement this method. Let's
 add this function at the top of our component:
 ```es6
 textChanged = () => {
@@ -26,51 +26,49 @@ textChanged = () => {
 ## Arrow functions
 
 You may notice some funny looking syntax there. What's with this fat arrow
-business `=>`? That's some ES6 syntactical sugar that automatically binds
-that function to `this`. In this case `this` is the entire scopr of the
-component. We run into trouble with `onChange` handlers like that, because
-when the function is fired, it is in the scope of the `textarea` component,
-and we need access to the global component scope. By using an arrow function
-like that, we will now have access to the component's scope. Great!
+business `=>`? Arrow functions are a simplified function added in ES6. They have a
+few benefits, but the one we're counting on here is called "lexical scope". The `this`
+variable in an arrow function will be the scope in which the function was defined,
+not the scope in which it was called. If you've ever used `this` in an event handler before
+and been surprised that it's a DOM node instead of an object instance, the arrow function
+is what you've been waiting for. In this case `this` is a reference to the component instance.
 
 ## Making the component update
 
-Ok, so now we've trapped that onChange event, but what do we do with it? We
+Ok, so now we've trapped that `onChange` event, but what do we do with it? We
 need to tell the `ReadingTime` component to update the word count when this
 happens. But how do we communicate with it? React provides a way to do this
-and it's called [refs](https://facebook.github.io/react/docs/more-about-refs.html).
-We can add a "reference" to a component, and then access it's internal
-methods form the parent component. Let's add a ref to the `ReadingTime` component"
+called [`refs`](https://facebook.github.io/react/docs/more-about-refs.html).
+We can add a "reference" to a component, and then access its internal
+methods inform the parent component. Let's add a `ref` to the `ReadingTime` component:
 ```es6
 <ReadingTime ref='readingTime' className='col-lg-2 well' />
 ```
 
-So now that we have a reference to the component, we can tell it to update:
+Now that we have a reference to the component, we can tell it to update:
 ```es6
 textChanged = () => {
   this.refs.readingTime.updateReadingTime()
 }
 ```
 
-When you add a ref to a component, that component is then added to a `refs`
-array on the parent component. So we can access it through `this.refs` and
+When you add a `ref` to a component, that component is then added to a `refs`
+object on the parent component. We can access it through `this.refs` and
 then the name of the ref. At this point, we have the instance of the element
 and call tell it to do whatever we want! Now we'll need to implement the
 `updateReadingTime` function in the `ReadingTime` component. Go ahead and open
 that file and let's add it:
 ```es6
 updateReadingTime = () => {
-  let selector = '[data-article]',
-      article = document.querySelector(selector),
+  let article = document.querySelector('[data-article]'),
       text = this.getText(article),
-      wordCount = this.countWords(text),
-      readTime = Math.round(wordCount / this.props.wordsPerMinute)
+      readTime = Math.round(this.countWords(text) / this.props.wordsPerMinute)
 
   this.setState({ readTime: readTime })
 }
 ```
 
-That's all we need to do! Now you be able to happily type away and the widget
+That's all we need to do! Now you will be able to happily type away and the widget
 will update automatically! Awesome stuff! Of course, because we need to add
 270 words to make the reading time increase by 1 minute, it will take quite
 a few words to make it update. To make it more responsive go ahead and update
