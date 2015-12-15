@@ -28,10 +28,10 @@ textChanged = () => {
 You may notice some funny looking syntax there. What's with this fat arrow
 business `=>`? Arrow functions are a simplified function added in ES6. They have a
 few benefits, but the one we're counting on here is called "lexical scope". The `this`
-variable in an arrow function will be the scope in which the function was defined,
-not the scope in which it was called. If you've ever used `this` in an event handler before
-and been surprised that it's a DOM node instead of an object instance, the arrow function
-is what you've been waiting for. In this case `this` is a reference to the component instance.
+variable in an arrow function will be the context in which the function expression was called,
+not the caller. If you've ever used `this` in an event handler
+and been surprised that it's a DOM node instead of an object, the arrow function
+is what you've been waiting for. In our case `this` is a reference to the component instance.
 
 ## Making the component update
 
