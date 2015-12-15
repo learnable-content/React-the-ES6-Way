@@ -39,13 +39,13 @@ updateReadingTime = () => {
 }
 ```
 
-Great, now our component is way more flexible, and users can pass in a custom
+Great, now our component is more flexible, because users can pass in a custom
 selector! You may have noticed that I added in a bit of destructuring there
 too in order to make accessing our variables easier. Gotta love ES6!!
 
-Ok, we're are almost there, I just want to add one more piece to make it just
+Ok, we're are almost there, I just want to add one more piece to make it
 a bit more customizable, and to be able to demonstrate one more neat feature
-of destructuring. Let's allow the user to customize the text color inside the
+of destructuring. Lets allow the user to customize the text color inside the
 widget. We'll add one more prop to our `propTypes` and `defaultProps`:
 ```es6
 static propTypes = {
@@ -61,7 +61,7 @@ static defaultProps = {
 }
 ```
 
-The last thing we need to do is update our render method:
+The last thing we need to do is update our `render` method:
 ```es6
 render() {
   const { textColor, ...rest } = this.props,
@@ -81,10 +81,10 @@ render() {
 
 What I've done here is use the power of ES6 destructuring to be able to grab
 just the variables I need from the props, and then assign the "rest" of them
-to a variable so they can be passed into our components main div. This allows
+to a variable so they can be passed into our component's main `div`. This allows
 us to have some static props that we need to use in our component, but still
 allow other developers to pass in arbitrary props and they will end up on the
-div. Pretty awesome! I also used the `textColor` prop to set the text color
+`div`. Pretty awesome! I also used the `textColor` prop to set the text color
 in our widget.
 
 That's it! We've finished our whirlwind tour of React, and you should now be
