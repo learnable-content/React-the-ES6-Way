@@ -108,7 +108,7 @@ $ mkdir react-reading-time
 By the way, we'll be making a small reusable React component in this tutorial
 that will show estimated reading time for an atricle. Neat eh?
 
-Now let's cd into that directory and create a boilerplate `package.json` file:
+Now let's `cd` into that directory and create a boilerplate `package.json` file:
 ```bash
 $ cd react-reading-time
 $ npm init --yes
@@ -137,18 +137,19 @@ installing a few things.
 
 ### Webpack
 
-We're going to use [Webpack](https://webpack.github.io/) to handle the
-transpiling of our code from ES6 to ES5(via Babel), bundling of all of our
-code into one nice package, and to run our hot-reloading development server.
-If you aren't familiar with the term `hot-reloading`, it simply means that
-any changes we make to our JavaScript or CSS files(that Webpack knows about
-and is including in the bundle) will be automatically transpiled, updated
-in the bundle, and hot reloaded in the browser without us having to reload
-the webpage to see our changes. Now THAT is awesome stuff.
+We're going to use [Webpack](https://webpack.github.io/) to pipe our ES6 code through
+Babel and bundle the ES5 output for optimal download and execution speed.
+Webpack also provides a development server.
+
+With the development server our assets will be `hot-reloading`, which means
+any changes we make to our included JavaScript or CSS files will be automatically
+compiled, updatedm in the bundle, and injected into the existing browser tab without
+us having to reload to see our changes. Now THAT is awesome stuff.
 
 Let's begin by installing Webpack. We will be installing Webpack globally
-so that we have access to the Command Line Tools. We do that by using the
+so that we have access to the Command Line tools. We do that by using the
 `-g` flag:
+
 ```bash
 $ npm install -g webpack
 ```
