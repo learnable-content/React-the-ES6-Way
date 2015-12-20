@@ -4,12 +4,12 @@ Welcome to ReactJS, the ES6 way! My name is Darin Haener, and I'll be taking
 you on a whirlwind introductory tour of ReactJS, and as the course name
 suggests, we'll be doing it the ES6 way!
 
-React is a unique JavaScript framework in that it is *only* the "V" in MVC.
-Meaning that it is only used on the "View" layer in web applications. This
+React is a unique JavaScript library in that it is *only* the "V" in MVC.
+Meaning that it is only used on the View layer in web applications. This
 allows it to be narrowly focused on doing one thing and doing it well.
 
 React uses many innovative technologies to create a fast, modular, and
-easy to use framework.
+easy to use interface library.
 
 ## The Virtual DOM
 
@@ -20,8 +20,8 @@ We'll be discussing this in more detail later.
 ## ES6
 
 Hopefully, if you're taking this course, you've made yourself at least a little
-bit familiar with the newest JavaScript specification called ECMAScript 2015,
-or ES6 for short. We'll be using ES6 to create our React components in this
+bit familiar with the newest JavaScript specification -- ECMAScript 2015 -- also
+known as ES6. We'll be using ES6 to create our React components in this
 class, because it's awesome, and makes programming in JavaScript even more
 fun.
 
@@ -35,13 +35,11 @@ class MyComponent extends React.Component {
 }
 ```
 
-As you can see you can also easily import modules, and inherit from other
+As you can see you can easily import modules and extend other
 classes! Awesome stuff, and we'll be using these new idioms to make our
 components clean and easy to code.
 
-Because it's not fully supported in browsers just yet, we'll have to use
-[Babel](https://babeljs.io/) to transpile our code down to browser friendly
-ES5.
+Although [browsers are improving their ES6 support](https://kangax.github.io/compat-table/es6/), for now we'll need to compile our code into ES5. We'll use [Babel](https://babeljs.io/) for this task.
 
 ## Moving on...
 
