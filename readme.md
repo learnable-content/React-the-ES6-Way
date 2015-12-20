@@ -2,9 +2,8 @@
 
 ## Text Editor
 
-The very first thing you'll need is a text editor. Hopefully, you've already
-got a favorite that you are using already. These days, I prefer Vim, but to
-each his/her own. Here are some popular choices:
+The very first thing you'll need is a text editor. Hopefully, you already have a favorite and you're using it. These days I prefer Vim, but to
+each their own. Here are some popular choices:
 
   * [Sublime Text](http://www.sublimetext.com/)
   * [Atom](https://atom.io/)
@@ -25,8 +24,8 @@ renders the components in the DOM.
 We will be using [GitHub](https://github.com/) to store our code, so if you're
 not familiar with it, you can find a great general overview of it
 [here](https://guides.github.com/activities/hello-world/). I'll be using the
-command line in the tutorials, but if that's not your thing, then no sweat,
-go ahead and use whatever GUI implementation you'd like. Some popular ones are:
+command line in the tutorials, but if that's not your thing go ahead and use whichever
+git client you'd like. Some popular ones are:
 
   * [SourceTree](https://www.sourcetreeapp.com/)
   * [GitHub Desktop](https://desktop.github.com/)
@@ -35,8 +34,7 @@ You'll also need to ensure that Git is installed on your system. If you are
 running OS X or Linux, then you've already got it so don't sweat it. If you're
 on Windows there is a great solution out there called [Git for Windows](https://git-for-windows.github.io/).
 After installation you'll have Git installed, as well as a GUI Git client,
-*and* a handy terminal called GitBash that will give you a \*nix like
-bash terminal.
+*and* Git BASH -- a handy terminal emulator providing a *NIX command-line interface including the `git` command.
 
 ## The *Dreaded* Command Line
 
@@ -46,10 +44,9 @@ very simple commands to get our code transpiled, and to start our Node
 servers. If you're using OS X or Linux, congratulations, you already have
 a great bash terminal installed on your system. If you're using Windows,
 you can certainly use the run of the mill MS-DOS prompt, or you can use
-GitBash, which will be installed if you used the link from above.
+Git BASH, which will be installed if you used the link from above.
 
 ## Next lesson...
 
 That's all the tools that we'll need to get started! So let's move on to
 the next section and figure out what this NPM thing is...
-
