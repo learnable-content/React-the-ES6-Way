@@ -5,14 +5,14 @@ manager for node. Although, npm does *not* stand for "node package manager".
 I won't go into the details of that, but if you'd like to, you can read all
 about it [here](https://docs.npmjs.com/misc/faq#if-npm-is-an-acronym-why-is-it-never-capitalized).
 
-npm makes it really easy to install, and maintain specific versions of
+npm's purpose is to install and maintain specific versions of
 JavaScript packages without the old copy and paste that we used to have to do
 back in the "old days".
 
 ## Dependencies
 
-Application requirements are defined in a file that typically lives in the
-root directory of your application called `package.json`:
+Application requirements are defined in a file in the
+root directory of your application, called `package.json`.
 
 ```json
 {
@@ -57,19 +57,17 @@ ancillary information that is needed if we are going to push our package up to n
 
 ## Semantic Versioning
 
-npm uses [semantic versioning](http://semver.org/) in all of their modules
-to make is easier to get the newest version of a module without breaking
-your application code. They also have their own set of conventions and
-special characters that are used in `package.json` dependencies to allow you
-more fine grained control over how package versions are selected and installed.
-
+npm dictates the use of [semantic versioning](http://semver.org/) in all modules
+to allow module authors to define how much their module has changed since its last release.
+We can declare what module updates, if any, we want to allow while we're building our app. We do
+this by using `comparators` -- an `operater` and a `version` number -- in `package.json`.
 
 ## [Ranges](https://docs.npmjs.com/misc/semver#ranges)
 
-We'll start with the more obvious `>=`. It simply means "install the newest
-version of this package that has at least this version number". You can also
-use other operators such as `>`, `<`, `=`, and `<=`. They all do exactly what
-you think they do. Pretty simple eh? Well it doesn't end there...
+We'll start with the primitive operators, eg: `>=`. It means "install the newest
+version of this package that has at least this version number". Other primitive operators
+include `>`, `<`, `=`, and `<=`. They all do exactly what
+you think they do, but do not take advantage of the granularity provided by semantic versioning.
 
 ## [Tilde Ranges](https://docs.npmjs.com/misc/semver#tilde-ranges-1-2-3-1-2-1)
 
@@ -77,22 +75,12 @@ Let's take a look at the `history` entry in our `package.json` file:
 ```json
 "history": "~1.13.1"
 ```
-This is called [tilde ranges](https://docs.npmjs.com/misc/semver#tilde-ranges-1-2-3-1-2-1),
-and means that it allows the version number to change based on whether or not
-the patch or minor version number is specified. In our current setup, any
-version greater than or equal to `1.13.1` or less than `1.14.0` will be
-an acceptable package. Now, had we specified it this way:
-```json
-"history": "~1.13"
-```
-then the rules change. In this scenario, npm will accept anything that is
-greater than or equal to `1.13.0` and less than `1.14.0`. Again, if we remove
-one more level of versioning in our dependency:
-```json
-"history": "~1"
-```
-the rules change yet again. Here, npm will accept any version that is greater
-than or equal to `1.0` and less than or equal to `2.0`.
+This is called a [tilde range](https://docs.npmjs.com/misc/semver#tilde-ranges-1-2-3-1-2-1) comparator,
+and is equivelent to "at least `1.13.1`, but less than `1.14.0`". If we had ommited the `PATCH` version and only asked for `~1.13`,
+npm would have installed the latest version beneath `1.14`, but would not update `1.13.0` if it is already installed locally.
+
+By extension, if we had merely declared `"history": "~1"`, npm would install any version beneath `2.0.0`, but would not fetch
+a newer version if `1.0.0` or newer was already installed.
 
 ## [Caret Ranges](https://docs.npmjs.com/misc/semver#caret-ranges-1-2-3-0-2-5-0-0-4)
 
@@ -109,8 +97,8 @@ From npm:
 
 Essentially, this means "give me the newest version of this package that
 doesn't have a breaking change". Typically when a package author using
-[semver](https://docs.npmjs.com/misc/semver) makes a relatively minor, but
-breaking change to their module, they will bump the minor version. So a
+[semver](https://docs.npmjs.com/misc/semver) with a `0.x.x` `MAJOR` version makes
+a relatively minor, but breaking change to their module, they will bump the minor version. So a
 `0.1.x` package will become `0.2.0`. Let's say that we had a package that was
 at version `0.1.3` and we were using caret ranges. Our `package.json` might
 look like this:
