@@ -1,7 +1,7 @@
 # Component constructors and state
 
 In React, props are immutable. Meaning you can't change the value of the props
-once the component is created. So how do we got about creating dynamic UI's
+once the component is created. So how do we got about creating UIs
 that change? We use state. State is what represents what your application
 UI looks like at any given moment. We define the initial state of our component
 inside the constructor. What's a constructor?!?!?! It's the "initialize"
@@ -31,19 +31,19 @@ The constructor of that `Component` class receives a JavaScript object literal
 that looks like this:
 ```json
 {
-  foo: 'bar',
-  bar: 'baz'
+  "foo": "bar",
+  "bar": "baz"
 }
 ```
 
 The other thing you may find strange is the `super` function call. What this
-does is it tells the class to call the inherited classes (in this case, the
+does is it tells the class to call the inherited class's (in this case, the
 React.Component) constructor function with the arguments you give it. When
-using inherited classes it is require that the super method (if being called)
-be called before anything else in the constructor. So here we're just passing
+extending classes it is required that the super method (if being called)
+be called first in the constructor. So here we're just passing
 off the props to React and letting React do what it normally does with them.
 In this case React will assign them to `this.props`. In this contrived example
-we're also assigning the state of the application to the props.
+we're also assigning the state of the application to the value of the props.
 
 Now let's open up our `ReadingTime` component and add the following
 constructor:
@@ -92,8 +92,8 @@ import ReadingTime from '../src/reading-time'
 ```
 
 Ok now let's add this component to our view. We'll also add some classes,
-a textarea for writing an article and some default text to put into the textarea.
-Let's just rewrite the entire render function like this:
+a `textarea` for writing an article and some default text to put into the `textarea`.
+Let's just rewrite the entire `render` function like this:
 ```es6
 render() {
   let defaultText = 'Foo is baz and bar'
