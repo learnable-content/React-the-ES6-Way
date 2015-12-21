@@ -10,7 +10,7 @@ are these mystical things called `props`? Props are simply properties that
 are passed into a React component for consumption by said component.
 
 ```jsx
-<Component prop1='foo' prop2='bar' />
+<Component prop1='foo' prop2={someFunction} />
 ```
 
 In that short snippet, `prop1` and `prop2` would be available to use in the
@@ -21,8 +21,7 @@ class Component extends React.Component {
   render() {
     return (
       <div>
-        <span>{this.props.prop1}</span>
-        <span>{this.props.prop2}</span>
+        <button onClick={this.props.prop2}>{this.props.prop1}</button>
       </div>
     )
   }
@@ -30,7 +29,8 @@ class Component extends React.Component {
 ```
 
 Easy right? Anything we give to the component as an "HTML attribute" is
-available as a prop in the component.
+available as a prop in the component. Unlike HTML attributes, we can pass JavaScript
+variables by replacing the quotes with curly braces.
 
 ## propTypes
 
