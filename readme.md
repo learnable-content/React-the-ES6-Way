@@ -4,7 +4,7 @@ We're going to go ahead and finish up the `ReadingTime` component in this
 lesson and we'll see how updating state makes the UI update.
 
 First we'll need to add some boilerplate code that will count the actual
-words inside of the textarea we created. This code is pretty boring, and
+words inside of the `textarea`. This code is pretty boring, and
 doesn't have anything to do with React, so we'll just paste it in:
 ```es6
 countWords(text) {
@@ -31,64 +31,55 @@ getText(domElement) {
 }
 ```
 
-Time for a quick rundown of these functions. The `getText` function simply traverses
-all of the children of the selected DOM element that is passed into the function
-and grabs all the text that is inside of them and concatenates it into one
-long string.
+Time for a quick rundown of these functions. The `getText` function traverses
+all of the children of the `domElement` parameter, grabs all the text that
+is inside of them and concatenates it into one long string.
 
-The `countWords` function simply takes a string, splits it wherever there is a
+The `countWords` function takes a string, splits it wherever there is a
 space and counts how many words there are. Nothing too exciting here, but we
 will need these two functions to get our reading time estimator to work.
 
 ## Component lifecycles
 
 The next thing we need to do is estimate what the reading time is going to be
-for the article that is on the page when the component mounts. We can't
-execute that code in the constructor of the component, because when the
-component is created the DOM has not yet been rendered, so the word count
-would always be zero. We're going to use React's lifecycle hooks to run
+when the component mounts. We can't execute that code in the constructor of the
+component, because when the component is created the DOM has not yet been rendered,
+so the word count would always be zero. We're going to use React's lifecycle hooks to run
 this code immediately after the DOM has been rendered. There are quite a few
-lifecycle hooks available, and you can read all about them [here](https://facebook.github.io/react/docs/component-specs.html#lifecycle-methods).
+[lifecycle hooks in React](https://facebook.github.io/react/docs/component-specs.html#lifecycle-methods).
 For this use case, we'll be using the `componentDidMount` hook, so let's add
 this to our `ReadingTime` component. React convention is to put this function
 immediately after the constructor function and before any other code:
 ```es6
 componentDidMount() {
-  let selector = '[data-article]',
-      article = document.querySelector(selector),
+  let article = document.querySelector('[data-article]'),
       text = this.getText(article),
-      wordCount = this.countWords(text),
-      readTime = Math.round(wordCount / this.props.wordsPerMinute)
+      readTime = Math.round(this.countWords(text) / this.props.wordsPerMinute)
 
   this.setState({ readTime: readTime })
 }
 ```
 
-Ok so what's happening here? The first thing we're doing is setting variable
-equal to the DOM selector that we want to use to grab the chunk of the DOM
-that contains the article we're interested in. Remember a few lessons ago
-when we created the textarea, and the containing div had that data attribute
+Ok so what's happening here? The first thing we're doing is assigning a reference to the
+DOM node containing the article text. Remember a few lessons ago
+when we created the `textarea`, and the containing `div` had that data attribute
 on it? That's why we put that there.
 
-So we're then selecting that element, passing that element into our `getText`
-function to pull all the text from that container and dump it into a string,
-which will then be assigned to the `text` variable. Then we're just passing
-that into the `countWords` function to get the total word count and assign it
-to the `wordCount` variable. Then it's just a matter of taking that total
-wordcount and dividing it by the `wordsPerMinute` prop that we defined in an
-earlier lesson.
+We're then passing that element into our `getText` function to pull all the text
+from the container and dump it into a string, which will then be assigned to the
+`text` variable. Then we're getting the total word count using `this.countWords`
+and dividing it by the `wordsPerMinute` prop that we defined in an earlier lesson.
 
 After we've calculated what the reading time is going to be for this article
-it's as simple as setting the state! But we can't just simply update the value
-of `this.state`. We really should treat the component state as if it is
-immutable, and use React's internal methods to update the state. That's why
-we use the `setState` method to set the state. Using this method also triggers
-a DOM update, so React will update the Virtual DOM, perform the diff, and update
-the pieces of the DOM that have changed.
+it's as simple as setting the state! But we can't simply update the value
+of `this.state`. We need to treat the component state as immutable, and use
+React's internal methods to update the state. That's why we use the `setState`
+method to set the state. Using this method also triggers a DOM update, so React will
+update the Virtual DOM, perform the diff, and update the pieces of the DOM that have changed.
 
 Up until now our component has always said that the reading time is 0.
 Unfortunately, it's still going to, because we only have 5 words in our text
-box. So go ahead and update the `defaultText` variable in the render method
+box. So go ahead and update the `defaultText` variable in the `render` method
 of the `ReactReadingTime` component to something really, really long, and you
 should see the estimated reading time jump up when the page loads.
 
@@ -132,10 +123,10 @@ render() {
 }
 ```
 
-And this will work just fine. The names of the classes in that prop will be
-passed into that div and rendered into the DOM. But what if later we want to
+And this will work just fine. The names of the classes in the `className` prop will be
+passed into the `div` and rendered into the DOM. But what if later we want to
 expand this component and add more props? Then we have to add another attribute
-to that div to pass the new props in. What if we decide to release this module
+to that `div` to pass the new props in. What if we decide to release this module
 into the wild on npm and the end user wants to add custom attributes to this
 component? That's where JSX spread operators come into play. With spread
 operators we can rewrite that like this:
@@ -152,7 +143,7 @@ render() {
 ```
 
 What's going on there? What we're saying here is to take all the props and
-apply them to that div. So if our props looked like this:
+apply them to our `div`. So if our props looked like this:
 ```json
 {
   className: 'foo',
