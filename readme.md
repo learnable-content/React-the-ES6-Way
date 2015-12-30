@@ -8,12 +8,12 @@ reusable components.
 ## propTypes
 
 We'll go into this in more detail in the next section, but React provides a
-`propTypes` declaration that you can, and **should** use to define what props
-a component should receive, and their types:
+`propTypes` declaration that you should use to define what props
+a component may receive, their types, and if they're required or optional:
 ```jsx
 propTypes = {
   foo: React.PropTypes.boolean,
-  bar: React.PropTypes.string
+  bar: React.PropTypes.string.isRequired
 }
 ```
 
@@ -43,7 +43,8 @@ This is better:
 ```
 
 See how much easier to read and reason about the second version is? Always
-put your conponents on their own lines.
+put your conponents on their own lines. Multi-line blocks of JSX must be
+encapsulated in a pair of curly braces.
 
 ### Conditional elements
 
@@ -56,7 +57,7 @@ Bad:
 render() {
   return (
     <div>
-      { window.loggedIn? ? <SecretComponent /> : null }
+      { window.loggedIn ? <SecretComponent /> : null }
     </div>
   )
 }
@@ -64,15 +65,18 @@ render() {
 
 Good:
 ```jsx
-render() {
-  let secretComponent
-  if (window.loggedIn?) secretComponent = <SecretComponent />
+class MyComponent extends React.Component {
+  render() {
+    return (
+      <div>
+        {this.secretComponent()}
+      </div>
+    )
+  }
 
-  return (
-    <div>
-      {secretComponent}
-    </div>
-  )
+  secretComponent() {
+    return (window.loggedIn) ? <SecretComponent /> : null;
+  }
 }
 ```
 
