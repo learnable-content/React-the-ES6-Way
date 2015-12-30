@@ -175,5 +175,5 @@ nice well drawn around your reading time widget! We're getting there!
 ## Next lesson...
 
 We've completed 3 sections in this tutorial and are ready to move on to the
-final one and tie all of this together! We'll have a truly reactive application
+final one and tie all of this together! We'll have a truly dynamic application
 and will do some great refactoring... Let's go!!!
