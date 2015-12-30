@@ -1,6 +1,6 @@
 # Application Structure
 
-In this short lesson we'll just be creating a few folders and files that will
+In this short lesson we'll be creating a few folders and files that will
 be necessary for us to get going on our application development.
 
 ## Example App Files
@@ -27,7 +27,7 @@ paste in this code:
 We're doing a few things here. First we're just pulling in BootStrap to give
 us some easy to use styling. Next you'll notice we have a `div` with an id
 of `react` on it. This is the container that we are going to use to mount
-our React app on.
+our React app in.
 
 The next thing I want to point out is the script tag at the bottom of the
 file. This is where our transpiled React code gets loaded. It's being loaded
