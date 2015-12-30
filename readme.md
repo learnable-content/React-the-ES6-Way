@@ -48,7 +48,7 @@ $ mkdir src
 We'll need one more configuration file to tell Babel which presets to use
 when transpiling our ES6 and JSX. Create a new file called `.babelrc` in
 our applications root folder and put the following in it:
-```json
+```javascript
 {
   presets: ['es2015', 'react']
 }
