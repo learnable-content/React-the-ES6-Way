@@ -3,7 +3,7 @@
 So far we've built our little app to count the number of words in an existing
 article and display that in our widget. This works, but isn't very exciting
 and doesn't respond to any changes on the page. Let's use some event handlers
-to trigger updates on our `ReadingTime` widget. Open up the `ReadingTime`
+to trigger updates on our `ReadingTime` widget. Open up the `ReactReadingTime`
 component and add an `onChange` handler to the `textarea`.
 ```es6
 <textarea
