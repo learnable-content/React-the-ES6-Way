@@ -144,7 +144,7 @@ render() {
 
 What's going on there? What we're saying here is to take all the props and
 apply them to our `div`. So if our props looked like this:
-```json
+```javascript
 {
   className: 'foo',
   name: 'bar'
