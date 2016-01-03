@@ -1,4 +1,4 @@
-# The Virtaul DOM
+# The Virtual DOM
 
 So up until now you may have been wondering how React can possibly manage
 to update the state of your components? You may have also heard of this
@@ -51,4 +51,40 @@ render() {
 }
 ```
 
-For the purposes of demonstration
+For the purposes of demonstration, let's go ahead and add a simple input to
+our `ReadingTime` component:
+```es6
+render() {
+  return (
+    <div>
+      <p>
+        Estimated Read Time:<br /><br />
+        <span>{this.state.readTime}</span>
+        <input type='number' onChange={this.updateReadTime) />
+      </p>
+    </div>
+  )
+}
+```
+
+We've added a number input here so that we can update the `readTime` state
+variable, and we've added an `onChange` handler to the input. Let's implement
+that function. Add this just above the `render` function:
+```es6
+updateReadTime = (ev) => {
+  this.setState({ readTime: ev.target.value })
+}
+```
+
+This is just a simple function that updates the `state` of our component to
+reflect the new value of the input. We'll explore event handlers and changing
+state in more depth in Lesson 4, but for now you can quickly see how React
+handles changes in component state and updates the DOM automagically.
+
+You can go ahead and remove the number input and the `updateReadTime` function
+from the `ReadingTime` component, we only used those for demonstration purposes.
+
+## Next lesson...
+We've learned about the Virtual DOM and how React uses it to manage state
+changes in the app quickly and efficiently. Let's move on now and finish up our
+reading time component.
