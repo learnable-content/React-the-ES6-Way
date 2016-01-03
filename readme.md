@@ -3,90 +3,18 @@
 Let's get your development environment up and running so that we can start
 writing some code shall we?
 
-## NVM
-
-Unlike npm, NVM *is* an acronym and stands for what you think it does(no, not
-nevermind), "Node Version Manager". NVM allows us to have multiple, self
-contained, versions of Node running on the same system. While not entirely
-necessary, it is very handy when working on multiple projects that are running
-different version of Node.  It also makes it super easy to install newer
-versions of Node, and since it seems like lately theres a new version released
-every other week, it's a great tool to have. If you don't agree with any of
-this, or just plain can't get it installed, feel free to skip this section, as
-it's not *required* to complete this course.
-
-### OS X
-
-The first thing to do is to ensure that you have XCode installed. So open up
-your terminal and type:
-```bash
-$ xcode-select --install
-```
-If it's already installed you'll get an error message that reads something like
-this:
-```bash
-xcode-select: error: command line tools are already installed, use "Software Update" to install updates
-```
-You're good to go and can move on. Otherwise, a window will pop up prompting
-you to install XCode. Go ahead and click install and grab a cup of coffee
-while it downloads and installs.
-
-### Linux
-
-On Linux, you need to make sure you have the `build-essential` and `libssl-dev`
-packages installed:
-```bash
-$ apt-get install build-essential libssl-dev
-```
-
-### Install NVM
-
-Once those dependencies are installed, you can go ahead and run the install
-script using either curl or wget:
-```bash
-$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
-$ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
-```
-
-After the install script runs all you have to do is source it from your shell:
-```bash
-$ . ~/.nvm/nvm.sh
-```
-
-To make it source nvm upon every login just add the following to your `~/.bashrc`,
-`~/.profile`, or `~/.zshrc` file:
-```bash
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-```
-
-That's it! NVM is now installed. For more information and troubleshooting help
-visit the [NVM Homepage](https://github.com/creationix/nvm)
-
-### Windows
-
-I didn't forget about you Windows users. NVM is actually unavailable on Windows.
-There are a few alternatives:
-  * [nvmw](https://github.com/hakobera/nvmw)
-  * [nvm-windows](https://github.com/coreybutler/nvm-windows)
-  * [nodist](https://github.com/marcelklehr/nodist)
-
-If any of these don't work well for you, don't worry about it, you can just
-use one version of Node.
-
 ## Installing Node
 
-For those of you who were able to install NVM, congratulations! Installing
-Node is as easy as this:
-```bash
-$ nvm install 5.1.1
-```
+Installing Node is fairly straight forward on Mac OSX and Windows. The
+[NodeJS](https://nodejs.org/) website provides installers for both platforms.
+Just click on the `v5.3.0 Stable` button and you'll be off and running.
 
-That's it! So go ahead and install Node 5.1.1 and we'll be on our way!
-
-If you weren't able to install NVM, or are using Windows, just go to the
-[Node.js](https://nodejs.org/en/) site and download the installer for the
-latest version and install it.
+If you're using Linux, there isn't a premade installer, but you can download
+the binaries from the [downloads](https://nodejs.org/en/download/) page.
+Just be sure to click on the `Stable` button so that you're installing the
+latest and greatest version of NodeJS. If you don't know how to install from
+the binary on your Linux system, there's a great answer for this on
+[StackOverflow](http://stackoverflow.com/questions/20028996/how-to-install-node-binary-distribution-files-on-linux).
 
 ## Installing npm
 
