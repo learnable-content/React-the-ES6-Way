@@ -60,7 +60,7 @@ ancillary information that is needed if we are going to push our package up to n
 npm dictates the use of [semantic versioning](http://semver.org/) in all modules
 to allow module authors to define how much their module has changed since its last release.
 We can declare what module updates, if any, we want to allow while we're building our app. We do
-this by using `comparators` -- an `operater` and a `version` number -- in `package.json`.
+this by using `comparators` -- an `operator` and a `version` number -- in `package.json`.
 
 ## [Ranges](https://docs.npmjs.com/misc/semver#ranges)
 
