@@ -9,7 +9,7 @@ doesn't have anything to do with React, so we'll just paste it in:
 ```es6
 countWords(text) {
   return text.split(/\s+/).length
-}
+};
 
 getText(domElement) {
   let text = '',
@@ -28,7 +28,7 @@ getText(domElement) {
   }
 
   return text
-}
+};
 ```
 
 Time for a quick rundown of these functions. The `getText` function traverses
