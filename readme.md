@@ -57,7 +57,7 @@ componentDidMount() {
       readTime = Math.round(this.countWords(text) / this.props.wordsPerMinute)
 
   this.setState({ readTime: readTime })
-}
+};
 ```
 
 Ok so what's happening here? The first thing we're doing is assigning a reference to the
