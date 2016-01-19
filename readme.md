@@ -1,5 +1,3 @@
-#React the ES6 Way
-
 #Welcome
 
 This course has code samples provided.
