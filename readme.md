@@ -12,6 +12,6 @@ Happy Learning!
 
 # Index for the React the ES6 Way Course
 
-* [Lesson 1-1](React-the-ES6-Way/blob/lesson1.1/readme.md)
-* [Lesson 1-2](React-the-ES6-Way/blob/lesson1.2/readme.md)
-* [Lesson 1-3](React-the-ES6-Way/blob/lesson1.3/readme.md)
+* [Lesson 1-1](React-the-ES6-Way/tree/lesson1.1/readme.md)
+* [Lesson 1-2](React-the-ES6-Way/tree/lesson1.2)
+* [Lesson 1-3](React-the-ES6-Way/tree/lesson1.3)
