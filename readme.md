@@ -8,3 +8,10 @@ Code samples can also be downloaded through the [React the ES6 Way](https://www.
 
 
 Happy Learning!
+
+
+# Index for the React the ES6 Way Course
+
+* [Lesson 1-1](React-the-ES6-Way/tree/lesson1.1)
+* [Lesson 1-2](React-the-ES6-Way/tree/lesson1.2)
+* [Lesson 1-3](React-the-ES6-Way/tree/lesson1.3)
