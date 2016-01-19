@@ -10,7 +10,7 @@ Code samples can also be downloaded through the [React the ES6 Way](https://www.
 Happy Learning!
 
 
-# Index for the React the ES6 Way Course
+# Course Index
 
 * [Lesson 1-1](https://github.com/learnable-content/React-the-ES6-Way/tree/lesson1.1)
 * [Lesson 1-2](https://github.com/learnable-content/React-the-ES6-Way/tree/lesson1.2)
