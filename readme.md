@@ -12,6 +12,6 @@ Happy Learning!
 
 # Index for the React the ES6 Way Course
 
-* [Lesson 1-1](https://github.com/learnable-content/React-the-ES6-Way/lesson1.1/readme.md)
-* [Lesson 1-2](/lesson1.2)
-* [Lesson 1-3](/lesson1.3)
+* [Lesson 1-1](https://github.com/learnable-content/React-the-ES6-Way/tree/lesson1.1)
+* [Lesson 1-2](https://github.com/learnable-content/React-the-ES6-Way/tree/lesson1.2)
+* [Lesson 1-3](https://github.com/learnable-content/React-the-ES6-Way/tree/lesson1.3)
