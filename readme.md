@@ -1,21 +1,12 @@
-#ReactJS the ES6 Way
+#React the ES6 Way
 
-Welcome to ReactJS, the ES6 way! My name is Darin Haener, and I'll be taking you on a whirlwind introductory tour of ReactJS, and as the course name suggests, we'll be doing it the ES6 way!
+#Welcome
 
-React is a unique JavaScript library in that it is only the "V" in MVC. Meaning that it is only used on the View layer in web applications. This allows it to be narrowly focused on doing one thing and doing it well.
+This course has code samples provided.
 
-React uses many innovative technologies to create a fast, modular, and easy to use interface library.
+Code samples will be available on both GitHub and [Sitepoint Premium](https://www.sitepoint.com/premium/). This course has an assigned GitHub repo with code samples available via branches.
+
+Code samples can also be downloaded through the [React the ES6 Way](https://www.sitepoint.com/premium/courses/react-the-es6-way-2914/) course on SitePoint's Premium website. All lesson pages will provide code samples needed as required by the lesson. Click Download Zip to download the assets.
 
 
-#Lessons
-These are the lessons that will be covered
-
-###Lesson 1: Welcome to React!
-
-###Lesson 2: React Components
-
-###Lesson 3: The ReadingTime Component
-
-###Lesson 4: Putting It All Together
-
-###Lesson 5: Course Conclusion
+Happy Learning!
