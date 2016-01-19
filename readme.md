@@ -7,4 +7,15 @@ React is a unique JavaScript library in that it is only the "V" in MVC. Meaning 
 React uses many innovative technologies to create a fast, modular, and easy to use interface library.
 
 
+#Lessons
+These are the lessons that will be covered
 
+###Lesson 1: Welcome to React!
+
+###Lesson 2: React Components
+
+###Lesson 3: The ReadingTime Component
+
+###Lesson 4: Putting It All Together
+
+###Lesson 5: Course Conclusion
