@@ -20,7 +20,7 @@ add this function at the top of our component:
 ```es6
 textChanged = () => {
 
-}
+};
 ```
 
 ## Arrow functions
@@ -40,7 +40,7 @@ need to tell the `ReadingTime` component to update the word count when this
 happens. But how do we communicate with it? React provides a way to do this
 called [`refs`](https://facebook.github.io/react/docs/more-about-refs.html).
 We can add a "reference" to a component, and then access its internal
-methods inform the parent component. Let's add a `ref` to the `ReadingTime` component:
+methods from the parent component. Let's add a `ref` to the `ReadingTime` component:
 ```es6
 <ReadingTime ref='readingTime' className='col-lg-2 well' />
 ```
@@ -49,13 +49,13 @@ Now that we have a reference to the component, we can tell it to update:
 ```es6
 textChanged = () => {
   this.refs.readingTime.updateReadingTime()
-}
+};
 ```
 
 When you add a `ref` to a component, that component is then added to a `refs`
 object on the parent component. We can access it through `this.refs` and
 then the name of the ref. At this point, we have the instance of the element
-and call tell it to do whatever we want! Now we'll need to implement the
+and can tell it to do whatever we want! Now we'll need to implement the
 `updateReadingTime` function in the `ReadingTime` component. Go ahead and open
 that file and let's add it:
 ```es6
