@@ -23,7 +23,7 @@ class Component extends React.Component {
       <div>
         <button onClick={this.props.prop2}>{this.props.prop1}</button>
       </div>
-    )
+    );
   }
 }
 ```
@@ -41,7 +41,7 @@ skeleton for this component, remembering that there must **ALWAYS** be a render
 function in the component.
 
 ```es6
-import React from 'react'
+import React from 'react';
 
 export default class ReadingTime extends React.Component {
   static propTypes = {}
@@ -49,7 +49,7 @@ export default class ReadingTime extends React.Component {
   render() {
     return (
       <div></div>
-    )
+    );
   }
 }
 ```
@@ -85,15 +85,15 @@ other places in the application, but you have to explicitly ask for it:
 
 ```es6
 export add = function(num1, num2) {
-  return num1 + num2
+  return num1 + num2;
 }
 ```
 
 Some time later, in a module far, far, away....
 ```es6
-import MathFuncs from 'math'
+import MathFuncs from 'math';
 
-MatchFuncs.add(1, 2)
+MatchFuncs.add(1, 2);
 ```
 
 This is where the `export default` comes in. If you tell the module to export
@@ -102,15 +102,15 @@ importing becomes, instead of the entire module:
 
 ```es6
 export default function(num1, num2) {
-  return num1 + num2
+  return num1 + num2;
 }
 ```
 
 Some time much later, in a module much, much farther away....
 ```es6
-import add from 'math'
+import add from 'math';
 
-add(1, 2)
+add(1, 2);
 ```
 
 See the difference there? Typically in a React application, each component
