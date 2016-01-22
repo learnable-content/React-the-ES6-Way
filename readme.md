@@ -80,7 +80,7 @@ Module support is baked into ES6, and we've already seen how we can *import*
 code into a module that we need, but how do we get code *out* of a module
 that we want to be available to other programs or our application? With
 the `export` keyword of course! Any function, variable, or class that we
-preced with `export` will be available when the module is imported from
+precede with `export` will be available when the module is imported from
 other places in the application, but you have to explicitly ask for it:
 
 ```es6
