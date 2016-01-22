@@ -34,7 +34,7 @@ render() {
 
 There are several great reason for using JSX over the JavaScript syntax for
 creating React views. More casual developers like designers will be much more
-confortable with JSX, as it is easily regocnizable as HTML. Also, because JSX
+comfortable with JSX, as it is easily recognizable as HTML. Also, because JSX
 has opening and closing tags like HTML, it makes large trees of UI components
 much, much easier to read and reason about.
 
