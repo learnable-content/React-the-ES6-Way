@@ -20,7 +20,7 @@ the actual DOM, and only updates the parts of the DOM that have changed.
 
 This makes updating the application interface extremely fast and efficient, as
 we do not have to update the entire page to reflect the new state of the app.
-Also, we, as developers, do not have to programatically get the reference to
+Also, we, as developers, do not have to programmatically get the reference to
 the DOM node that needs to be updated, and then perform the update ourselves.
 We simply change a variable in the state tree and let React do all the work
 for us.
