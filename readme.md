@@ -34,7 +34,7 @@ file. This is where our transpiled React code gets loaded. It's being loaded
 directly from the hot development server that we've setup. If you look into
 the `webpack.config.js` file you can see on line 6 we have set it up to output
 the contents of our build to `localhost:8881` and further down in the file
-we're telling webpack to use the keys of the entry objects as the file name.
+we're telling Webpack to use the keys of the entry objects as the file name.
 So our output file will be called `react-reading-time.js`.
 
 Next we just need to make a directory to hold all of our source files for this
