@@ -63,7 +63,7 @@ React element to be rendered on the page.
 This is where the `ReactDOM` class comes in. It's time for use to put it to
 use to render our component. At the very bottom of the file, add this:
 ```es6
-ReactDOM.render(<ReactReadingTime />, document.getElementById('react'))
+ReactDOM.render(<ReactReadingTime />, document.getElementById('react'));
 ```
 
 When using the `render` function, the first argument is the component you would
