@@ -1,5 +1,5 @@
 # Refactoring!!
-
+[INVALID]
 There are a few places where we can clean up some of our code and make this
 look a bit better. You may have noticed that when we added the `onChange`
 handler in the last lesson that we used the exact same code to get a new reading
@@ -8,12 +8,12 @@ time that we did in the `componentDidMount` function. Let's update the
 calculate the reading time:
 ```es6
 componentDidMount() {
-  this.updateReadingTime()
+  this.updateReadingTime();
 }
 ```
 
 Refresh your page and make sure it works. And it does!
-
+[/INVALID]
 In the last lesson we also added the word `minutes` to our reading time
 output. But what about the case where the number is `1`? That's not going to
 make much sense. We're going to need a little bit of logic to determine
@@ -22,9 +22,9 @@ logic in the render method to accomplish this. Update your `render` method to
 look like this:
 ```es6
 render() {
-  let props = this.props,
-      { readTime } = this.state,
-      minutes = readTime === 1 ? 'minute' : 'minutes'
+  const {text, ...tags} = this.props;
+  const {readTime} = this.state;
+  const minutes = readTime === 1 ? 'minute' : 'minutes';
 
   return (
     <div {...props}>
@@ -33,7 +33,7 @@ render() {
         <span>{readTime} {minutes}</span>
       </p>
     </div>
-  )
+  );
 }
 ```
 
@@ -61,6 +61,7 @@ The next thing we should do is change our variable assignment from a `let`
 to a `const`. This is good practice when creating variables that we don't intend
 to reassign. Anything inside the render method should be immutable, so we can convey that message
 by changes all the assignments to a `const`:
+[FIX]
 ```es6
 render() {
   const props = this.props,
@@ -77,6 +78,7 @@ render() {
   )
 }
 ```
+[/FIX]
 
 That's it for our refactoring! Our little app is looking pretty good!
 
