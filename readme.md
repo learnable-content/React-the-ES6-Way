@@ -59,7 +59,7 @@ render() {
     <div>
       { window.loggedIn ? <SecretComponent /> : null }
     </div>
-  )
+  );
 }
 ```
 
@@ -69,12 +69,12 @@ class MyComponent extends React.Component {
   render() {
     return (
       <div>
-        {this.secretComponent()}
+        {this.renderSecretComponent()}
       </div>
-    )
+    );
   }
 
-  secretComponent() {
+  renderSecretComponent() {
     return (window.loggedIn) ? <SecretComponent /> : null;
   }
 }
