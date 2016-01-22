@@ -11,9 +11,9 @@ initialization.
 ```es6
 export default class Component extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = props
+    this.state = props;
   }
 }
 ```
@@ -49,17 +49,17 @@ Now let's open up our `ReadingTime` component and add the following
 constructor:
 ```es6
 constructor(props) {
-  super(props)
+  super(props);
 
   this.state = {
     readTime: 0
-  }
+  };
 }
 ```
 
 For reference, your `ReadingTime` component should now look like this:
 ```es6
-import React from 'react'
+import React from 'react';
 
 export default class ReadingTime extends React.Component {
   static propTypes = {
@@ -71,15 +71,15 @@ export default class ReadingTime extends React.Component {
   }
 
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = { readTime: 0 }
+    this.state = { readTime: 0 };
   }
 
   render() {
     return (
       <div>Hello ReadingTime!</div>
-    )
+    );
   }
 }
 ```
@@ -88,7 +88,7 @@ Excellent! We've created another component! Let's open up our main application
 component and add this component to our app. Open up `example/react-reading-time.jsx`
 and import our component:
 ```es6
-import ReadingTime from '../src/reading-time'
+import ReadingTime from '../src/reading-time';
 ```
 
 Ok now let's add this component to our view. We'll also add some classes,
@@ -96,7 +96,7 @@ a `textarea` for writing an article and some default text to put into the `texta
 Let's just rewrite the entire `render` function like this:
 ```es6
 render() {
-  let defaultText = 'Foo is baz and bar'
+  let defaultText = 'Foo is baz and bar';
 
   return (
     <div className='container' style={{ marginTop: '50px' }}>
@@ -109,7 +109,7 @@ render() {
       </div>
       <ReadingTime className='col-lg-2 well' />
     </div>
-  )
+  );
 }
 ```
 
