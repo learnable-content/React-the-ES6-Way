@@ -35,10 +35,12 @@ this.state = {
   text: 'Foo is baz and bar'
 };
 ```
-[FIX]
-Let's use that state to display something in our widget. Update the `render`
-method of your `ReadingTime` component to look like this:
-[/FIX]
+
+You may have noticed that the `textarea` in our component is no longer editable.
+This is because we made it a controlled component in the last lesson, and
+we have not implemented an `onChange` handler to update the state. Let's do
+that now.
+
 ```es6
 render () {
   return (
@@ -56,25 +58,25 @@ render () {
   );
 }
 ```
-[FIX]
-We've added a number input here so that we can update the `readTime` state
-variable, and we've added an `onChange` handler to the input. Let's implement
-that function. Add this just above the `render` function:
-[/FIX]
+
+We've added an `onChange` handler here to handle when a user types something
+in the `textarea`. You might be asking yourself, what's this double colon
+syntax? This is new ES7 syntax for binding a function to the current scope of
+this. It is analagous to `this.updateText.bind(this)`.
+
+Now that we've added a callback function to our `onChange` handler, we'll
+need to implement that function just above the `render` function:
+
 ```es6
-updateText (ev) {
+updateText(ev) {
   this.setState({ text: ev.target.value });
 }
 ```
-[FIX]
+
 This is just a simple function that updates the `state` of our component to
-reflect the new value of the input. We'll explore event handlers and changing
+reflect the new value of the `textarea`. We'll explore event handlers and changing
 state in more depth in Lesson 4, but for now you can quickly see how React
 handles changes in component state and updates the DOM automagically.
-
-You can go ahead and remove the number input and the `updateReadTime` function
-from the `ReadingTime` component, we only used those for demonstration purposes.
-[/FIX]
 
 ## Next lesson...
 We've learned about the Virtual DOM and how React uses it to manage state
