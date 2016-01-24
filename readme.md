@@ -49,14 +49,14 @@ updateReadingTime(props) {
 
 Ok so what's happening here? We have to use the `componentWillMount` hook
 for the initial render of the component, because the `componentWillReceiveProps`
-hook is *not* called on the initial render. Because we will be using the code
-that is needed to update the estimated reading time in two places, we put it into
-it's own function that takes a `props` object as an argument.
+hook is *not* called on the initial render.
 
 The `componentWillReceiveProps` lifecycle hook
 receives one argument, and that's an object containing the new props. We'll use
 these new props to calculate the new reading time and set the state.
 
+We've put the code for updating the estimated reading time into it's own function
+because it is going to be used in more than one place.
 The first thing we do is use our `countWords` function to count the number of
 words in the new string, and then just divide that by the `wordsPerMinute` prop
 and we're done! We then just set the state and we're good to go! But we can't simply update the value
