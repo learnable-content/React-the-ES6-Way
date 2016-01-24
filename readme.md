@@ -3,34 +3,18 @@
 We're going to go ahead and finish up the `ReadingTime` component in this
 lesson and we'll see how updating state makes the UI update.
 
+[FIX]
 First we'll need to add some boilerplate code that will count the actual
 words inside of the `textarea`. This code is pretty boring, and
 doesn't have anything to do with React, so we'll just paste it in:
+[/FIX]
 ```es6
 countWords(text) {
   return text.split(/\s+/).length
-};
-
-getText(domElement) {
-  let text = '',
-      length = domElement.childNodes.length
-
-  for (var i = 0; i < length; i++) {
-    let el = domElement.childNodes[i]
-
-    if (el.nodeType != 8) {
-      if (el.type && el.type.match(/(textarea|input)/)) {
-        text += el.value
-      } else {
-        text += el.nodeType === 3 ? el.nodeValue : this.getText(el)
-      }
-    }
-  }
-
-  return text
-};
+}
 ```
 
+[FIX]
 Time for a quick rundown of these functions. The `getText` function traverses
 all of the children of the `domElement` parameter, grabs all the text that
 is inside of them and concatenates it into one long string.
@@ -38,9 +22,11 @@ is inside of them and concatenates it into one long string.
 The `countWords` function takes a string, splits it wherever there is a
 space and counts how many words there are. Nothing too exciting here, but we
 will need these two functions to get our reading time estimator to work.
+[/FIX]
 
 ## Component lifecycles
 
+[FIX]
 The next thing we need to do is estimate what the reading time is going to be
 when the component mounts. We can't execute that code in the constructor of the
 component, because when the component is created the DOM has not yet been rendered,
@@ -50,16 +36,16 @@ this code immediately after the DOM has been rendered. There are quite a few
 For this use case, we'll be using the `componentDidMount` hook, so let's add
 this to our `ReadingTime` component. React convention is to put this function
 immediately after the constructor function and before any other code:
+[/FIX]
 ```es6
-componentDidMount() {
-  let article = document.querySelector('[data-article]'),
-      text = this.getText(article),
-      readTime = Math.round(this.countWords(text) / this.props.wordsPerMinute)
+componentWillReceiveProps (nextProps) {
+  const words = this.countWords(nextProps.text);
+  const readTime = Math.round(words / nextProps.wordsPerMinute);
 
-  this.setState({ readTime: readTime })
+  this.setState({ readTime });
 };
 ```
-
+[FIX]
 Ok so what's happening here? The first thing we're doing is assigning a reference to the
 DOM node containing the article text. Remember a few lessons ago
 when we created the `textarea`, and the containing `div` had that data attribute
@@ -92,6 +78,7 @@ have to refresh the page.
 If you've done everything right it should work! You won't even see that initial
 value of 0 on the page (although it is actually rendered initially) because
 all of React's updating happens so very fast.
+[/FIX]
 
 ## JSX Spread Operators
 
@@ -101,7 +88,7 @@ little bit prettier.
 If you'll recall from our `ReactReadingTime` component, when we rendered the
 `ReadingTime` widget, we added some classes to it:
 ```jsx
-<ReadingTime className='col-lg-2 well' />
+<ReadingTime text={this.state.text} className='col-lg-2 well' />
 ```
 
 But if you inspect the DOM that it actually rendered, these class names are
@@ -119,7 +106,7 @@ render() {
         <span>{this.state.readTime}</span>
       </p>
     </div>
-  )
+  );
 }
 ```
 
@@ -132,13 +119,13 @@ component? That's where JSX spread operators come into play. With spread
 operators we can rewrite that like this:
 ```es6
 render() {
-  let props = this.props
+  const {text, ...tags} = this.props;
 
   return (
-    <div {...props}>
+    <div {...tags}>
       ...
     </div>
-  )
+  );
 }
 ```
 
