@@ -75,7 +75,7 @@ updateText(ev) {
 
 This is just a simple function that updates the `state` of our component to
 reflect the new value of the `textarea`. We'll explore event handlers and changing
-state in more depth in Lesson 4, but for now you can quickly see how React
+state in more depth in the next lesson, but for now you can quickly see how React
 handles changes in component state and updates the DOM automagically.
 
 ## Next lesson...
