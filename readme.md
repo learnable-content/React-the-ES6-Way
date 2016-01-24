@@ -20,7 +20,7 @@ the actual DOM, and only updates the parts of the DOM that have changed.
 
 This makes updating the application interface extremely fast and efficient, as
 we do not have to update the entire page to reflect the new state of the app.
-Also, we, as developers, do not have to programatically get the reference to
+Also, we, as developers, do not have to programmatically get the reference to
 the DOM node that needs to be updated, and then perform the update ourselves.
 We simply change a variable in the state tree and let React do all the work
 for us.
@@ -32,50 +32,41 @@ we created the constructor for our component in the last lesson? We set
 the initial state of the app:
 ```es6
 this.state = {
-  readTime: 0
-}
+  text: 'Foo is baz and bar'
+};
 ```
-
+[FIX]
 Let's use that state to display something in our widget. Update the `render`
 method of your `ReadingTime` component to look like this:
+[/FIX]
 ```es6
-render() {
+render () {
   return (
-    <div>
-      <p>
-        Estimated Read Time:<br /><br />
-        <span>{this.state.readTime}</span>
-      </p>
+    <div className='container' style={{ marginTop: '50px' }}>
+      <div className='col-lg-8 col-lg-offset-2 form-group'>
+        <textarea
+          value={this.state.text}
+          onChange={::this.updateText}
+          className='form-control'
+          style={{ height: '500px', resize: 'none' }}>
+        </textarea>
+      </div>
+      <ReadingTime text={this.state.text} className='col-lg-2 well' />
     </div>
-  )
+  );
 }
 ```
-
-For the purposes of demonstration, let's go ahead and add a simple input to
-our `ReadingTime` component:
-```es6
-render() {
-  return (
-    <div>
-      <p>
-        Estimated Read Time:<br /><br />
-        <span>{this.state.readTime}</span>
-        <input type='number' onChange={this.updateReadTime) />
-      </p>
-    </div>
-  )
-}
-```
-
+[FIX]
 We've added a number input here so that we can update the `readTime` state
 variable, and we've added an `onChange` handler to the input. Let's implement
 that function. Add this just above the `render` function:
+[/FIX]
 ```es6
-updateReadTime = (ev) => {
-  this.setState({ readTime: ev.target.value })
+updateText (ev) {
+  this.setState({ text: ev.target.value });
 }
 ```
-
+[FIX]
 This is just a simple function that updates the `state` of our component to
 reflect the new value of the input. We'll explore event handlers and changing
 state in more depth in Lesson 4, but for now you can quickly see how React
@@ -83,6 +74,7 @@ handles changes in component state and updates the DOM automagically.
 
 You can go ahead and remove the number input and the `updateReadTime` function
 from the `ReadingTime` component, we only used those for demonstration purposes.
+[/FIX]
 
 ## Next lesson...
 We've learned about the Virtual DOM and how React uses it to manage state
