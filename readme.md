@@ -34,7 +34,7 @@ start with this strange looking variable assignment:
 This is called `destructuring` and is an ES6 feature that makes assigning object properties
 to individual variables super easy. Remember what our `state` object looks like:
 
-```json
+```js
 {
   readTime: 1
 }
