@@ -76,7 +76,7 @@ Let's take a look at the `history` entry in our `package.json` file:
 "history": "~1.13.1"
 ```
 This is called a [tilde range](https://docs.npmjs.com/misc/semver#tilde-ranges-1-2-3-1-2-1) comparator,
-and is equivelent to "at least `1.13.1`, but less than `1.14.0`". If we had ommited the `PATCH` version and only asked for `~1.13`,
+and is equivalent to "at least `1.13.1`, but less than `1.14.0`". If we had omitted the `PATCH` version and only asked for `~1.13`,
 npm would have installed the latest version beneath `1.14`, but would not update `1.13.0` if it is already installed locally.
 
 By extension, if we had merely declared `"history": "~1"`, npm would install any version beneath `2.0.0`, but would not fetch
