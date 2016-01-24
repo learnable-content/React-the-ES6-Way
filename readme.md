@@ -28,7 +28,7 @@ fun.
 ES6 allows you do to neat things like create classes:
 
 ```es6
-import React from 'react'
+import React from 'react';
 
 class MyComponent extends React.Component {
   ...
