@@ -11,9 +11,9 @@ initialization.
 ```es6
 export default class Component extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = props
+    this.state = props;
   }
 }
 ```
@@ -49,17 +49,17 @@ Now let's open up our `ReadingTime` component and add the following
 constructor:
 ```es6
 constructor(props) {
-  super(props)
+  super(props);
 
   this.state = {
     readTime: 0
-  }
+  };
 }
 ```
 
 For reference, your `ReadingTime` component should now look like this:
 ```es6
-import React from 'react'
+import React from 'react';
 
 export default class ReadingTime extends React.Component {
   static propTypes = {
@@ -71,15 +71,15 @@ export default class ReadingTime extends React.Component {
   }
 
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = { readTime: 0 }
+    this.state = { readTime: 0 };
   }
 
   render() {
     return (
       <div>Hello ReadingTime!</div>
-    )
+    );
   }
 }
 ```
@@ -88,36 +88,44 @@ Excellent! We've created another component! Let's open up our main application
 component and add this component to our app. Open up `example/react-reading-time.jsx`
 and import our component:
 ```es6
-import ReadingTime from '../src/reading-time'
+import ReadingTime from '../src/reading-time';
 ```
 
 Ok now let's add this component to our view. We'll also add some classes,
 a `textarea` for writing an article and some default text to put into the `textarea`.
 Let's just rewrite the entire `render` function like this:
 ```es6
-render() {
-  let defaultText = 'Foo is baz and bar'
+constructor(props) {
+  super(props);
 
+  this.state = {
+    text: 'Foo is baz and bar'
+  };
+}
+
+render() {
   return (
     <div className='container' style={{ marginTop: '50px' }}>
-      <div data-article className='col-lg-8 col-lg-offset-2 form-group'>
+      <div className='col-lg-8 col-lg-offset-2 form-group'>
         <textarea
-          defaultValue={defaultText}
+          value={this.state.text}
           className='form-control'
           style={{ height: '500px', resize: 'none' }}>
         </textarea>
       </div>
-      <ReadingTime className='col-lg-2 well' />
+      <ReadingTime text={this.state.text} className='col-lg-2 well' />
     </div>
-  )
+  );
 }
 ```
 
+[FIX]
 Woohoo! We've got our component set to render inside of our main application
 page along with a text area. You'll notice a few things I did there that
 may seem strange. The first one is adding a data attribute to the div that
 holds the textarea. I did this so that later on down the road our `ReadingTime`
 component will have a way to know which container to get the word count from.
+[/FIX]
 
 I also added a style attribute to the element, but it doesn't look like a normal
 style tag that you would add to an HTML. Remember when we talked about JSX,
@@ -125,6 +133,7 @@ and how it's really just JavaScript? Because of that, we have to give the
 style tag a regular old JavaScript object to work with, which it can then
 turn into the proper style tag when rendering the DOM.
 
+[FIX]
 Another attribute that was added to the `textarea` that is JSX specific is
 the `defaultValue` attribute. React has the notion of `Controlled` and
 `Uncontrolled` components. When the `value` attribute is set on any type of
@@ -134,6 +143,7 @@ way to change the value is through an event handler. In our case, we just
 wanted to set the initial value of the input, which is why we used the
 `defaultValue` attribute instead of the `value` attribute. When there is no
 `value` set on an input, it is an uncontrolled component.
+[/FIX]
 
 Let's fire up the server again with `npm start` and visit `localhost:8881/example`
 and see what we've created so far! It's getting more and more exciting by the
