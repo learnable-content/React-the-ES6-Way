@@ -119,13 +119,12 @@ render() {
 }
 ```
 
-[FIX]
 Woohoo! We've got our component set to render inside of our main application
-page along with a text area. You'll notice a few things I did there that
-may seem strange. The first one is adding a data attribute to the div that
-holds the textarea. I did this so that later on down the road our `ReadingTime`
-component will have a way to know which container to get the word count from.
-[/FIX]
+page along with a text area. You'll notice that I added some text to our
+compontns state. We've added this so that we can keep track of the text that
+is being input into the text area so that we can pass it down to the
+`ReadingTime` component as props. We'll be using this later to calculate the
+reading time.
 
 I also added a style attribute to the element, but it doesn't look like a normal
 style tag that you would add to an HTML. Remember when we talked about JSX,
@@ -133,17 +132,13 @@ and how it's really just JavaScript? Because of that, we have to give the
 style tag a regular old JavaScript object to work with, which it can then
 turn into the proper style tag when rendering the DOM.
 
-[FIX]
-Another attribute that was added to the `textarea` that is JSX specific is
-the `defaultValue` attribute. React has the notion of `Controlled` and
-`Uncontrolled` components. When the `value` attribute is set on any type of
-input, it becomes a controlled component, and the value of that input will
-**always** be that value. User interaction will have no effect on it. The only
-way to change the value is through an event handler. In our case, we just
-wanted to set the initial value of the input, which is why we used the
-`defaultValue` attribute instead of the `value` attribute. When there is no
-`value` set on an input, it is an uncontrolled component.
-[/FIX]
+Another thing to note is that by adding a `value` attribute to the `textarea`
+we made it what is called a `Controlled` component. In a controlled component,
+the value of the input will **always** be the value of the `value` attribute.
+User interaction will have no effect on it. The only way to change the value
+is through an event handler. On the other hand, if you use the JSX specific
+`defaultValue` attribute, React will set the initial value of the component
+to this value, and it will still be editable by the user.
 
 Let's fire up the server again with `npm start` and visit `localhost:8881/example`
 and see what we've created so far! It's getting more and more exciting by the
