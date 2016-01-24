@@ -43,7 +43,7 @@ This is better:
 ```
 
 See how much easier to read and reason about the second version is? Always
-put your conponents on their own lines. Multi-line blocks of JSX must be
+put your components on their own lines. Multi-line blocks of JSX must be
 encapsulated in a pair of curly braces.
 
 ### Conditional elements
@@ -59,7 +59,7 @@ render() {
     <div>
       { window.loggedIn ? <SecretComponent /> : null }
     </div>
-  )
+  );
 }
 ```
 
@@ -69,12 +69,12 @@ class MyComponent extends React.Component {
   render() {
     return (
       <div>
-        {this.secretComponent()}
+        {this.renderSecretComponent()}
       </div>
-    )
+    );
   }
 
-  secretComponent() {
+  renderSecretComponent() {
     return (window.loggedIn) ? <SecretComponent /> : null;
   }
 }
