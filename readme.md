@@ -15,7 +15,7 @@ render() {
     React.createElement('div', { className: 'container' },
       'Hello React!'
     )
-  )
+  );
 }
 ```
 
@@ -26,7 +26,7 @@ render() {
     <div className='container'>
       Hello React!
     </div>
-  )
+  );
 }
 ```
 
@@ -34,7 +34,7 @@ render() {
 
 There are several great reason for using JSX over the JavaScript syntax for
 creating React views. More casual developers like designers will be much more
-confortable with JSX, as it is easily regocnizable as HTML. Also, because JSX
+comfortable with JSX, as it is easily recognizable as HTML. Also, because JSX
 has opening and closing tags like HTML, it makes large trees of UI components
 much, much easier to read and reason about.
 
@@ -44,7 +44,7 @@ React can render either HTML tags or React components. There is an important
 distinction to make however. If you use lowercase letters React will render
 an html tag. So the following:
 ```jsx
-ReactDOM.render(<div className='container'></div>, document.getElementById('react'))
+ReactDOM.render(<div className='container'></div>, document.getElementById('react'));
 ```
 
 Will render the following in the DOM:
@@ -55,7 +55,7 @@ Will render the following in the DOM:
 However, when you use a **capitalized** tag name when rendering, React will
 attempt to render a component with that name:
 ```jsx
-ReactDOM.render(<MyComponent />, document.getElementById('react'))
+ReactDOM.render(<MyComponent />, document.getElementById('react'));
 ```
 
 The above code will render the `MyComponent` class and all of it's children.
@@ -112,4 +112,3 @@ the ease of writing basic HTML. Good stuff!
 
 Now that we know our way around JSX, let's move on to a short discussion of a
 few React conventions that most developers use shall we?
-
