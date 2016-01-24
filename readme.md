@@ -1,5 +1,6 @@
 # Event Handlers
 
+[INVALID]
 So far we've built our little app to count the number of words in an existing
 article and display that in our widget. This works, but isn't very exciting
 and doesn't respond to any changes on the page. Let's use some event handlers
@@ -22,6 +23,7 @@ textChanged = () => {
 
 };
 ```
+[/INVALID]
 
 ## Arrow functions
 
@@ -34,7 +36,7 @@ and been surprised that it's a DOM node instead of an object, the arrow function
 is what you've been waiting for. In our case `this` is a reference to the component instance.
 
 ## Making the component update
-
+[INVALID]
 Ok, so now we've trapped that `onChange` event, but what do we do with it? We
 need to tell the `ReadingTime` component to update the word count when this
 happens. But how do we communicate with it? React provides a way to do this
@@ -67,6 +69,7 @@ updateReadingTime = () => {
   this.setState({ readTime: readTime })
 }
 ```
+[/INVALID]
 
 That's all we need to do! Now you will be able to happily type away and the widget
 will update automatically! Awesome stuff! Of course, because we need to add
