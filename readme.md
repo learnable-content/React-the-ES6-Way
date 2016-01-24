@@ -21,8 +21,8 @@ called `react-reading-time.jsx` and add some code to it.
 The first thing we need to do is import both the `React` and `ReactDOM` classes.
 Add these lines to the top of that file:
 ```es6
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 ```
 
 It's conventional to include all `import` statements at the top of your file,
@@ -48,7 +48,7 @@ class ReactReadingTime extends React.Component {
       React.createElement('div', {className: "container"},
         "Hello React!"
       )
-    )
+    );
   }
 }
 ```
@@ -63,7 +63,7 @@ React element to be rendered on the page.
 This is where the `ReactDOM` class comes in. It's time for use to put it to
 use to render our component. At the very bottom of the file, add this:
 ```es6
-ReactDOM.render(<ReactReadingTime />, document.getElementById('react'))
+ReactDOM.render(<ReactReadingTime />, document.getElementById('react'));
 ```
 
 When using the `render` function, the first argument is the component you would
