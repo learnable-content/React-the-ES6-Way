@@ -25,24 +25,39 @@ lifecycle hooks to run this code any time the component receives props. Our
 component is going to receive new props any time the `textarea` on the parent
 component is updated. There are quite a few
 [lifecycle hooks in React](https://facebook.github.io/react/docs/component-specs.html#lifecycle-methods).
-For this use case, we'll be using the `componentWillReceiveProps` hook, so let's add
-this to our `ReadingTime` component. React convention is to put this function
-immediately after the constructor function and before any other code:
+For this use case, we'll be using the `componentWillReceiveProps`, and the
+`componentWillMount` hooks, so let's add these to our `ReadingTime` component.
+React convention is to put this function immediately after the constructor
+function and before any other code:
 
 ```es6
+componentWillMount() {
+  this.updateReadingTime(this.props);
+}
+
 componentWillReceiveProps(nextProps) {
-  const words = this.countWords(nextProps.text);
-  const readTime = Math.round(words / nextProps.wordsPerMinute);
+  this.updateReadingTime(nextProps);
+};
+
+updateReadingTime(props) {
+  const words = this.countWords(props.text);
+  const readTime = Math.round(words / props.wordsPerMinute);
 
   this.setState({ readTime });
-};
+}
 ```
 
-Ok so what's happening here? The `componentWillReceiveProps` lifecycle hook
+Ok so what's happening here? We have to use the `componentWillMount` hook
+for the initial render of the component, because the `componentWillReceiveProps`
+hook is *not* called on the initial render. Because we will be using the code
+that is needed to update the estimated reading time in two places, we put it into
+it's own function that takes a `props` object as an argument.
+
+The `componentWillReceiveProps` lifecycle hook
 receives one argument, and that's an object containing the new props. We'll use
 these new props to calculate the new reading time and set the state.
 
-THe first thing we do is use our `countWords` function to count the number of
+The first thing we do is use our `countWords` function to count the number of
 words in the new string, and then just divide that by the `wordsPerMinute` prop
 and we're done! We then just set the state and we're good to go! But we can't simply update the value
 of `this.state`. We need to treat the component state as immutable, and use
@@ -55,9 +70,25 @@ key *AND* a value inside of that object? This is just some more new ES6 syntax
 that allows for more shorthand assigning of variables! It will set the key to
 the name of the variable passed in, and the value to the value of that variable!
 
-Up until now our component has always said that the reading time is 0.
-Unfortunately, it's still going to, because we only have 5 words in our text
-box. So go ahead and update the initial `text` state variable in the constructor
+Let's update the `ReadingTime` component to display the current state of the
+`readTime` variable:
+
+```es6
+render() {
+  return (
+    <div>
+      <p>
+        Estimated read time:<br /><br />
+        <span>{this.state.readTime}</span>
+      </p>
+    </div>
+  )
+}
+```
+
+Our `ReadingTime` component is now displaying 0 minutes for a read time.
+Unfortunately because we only have 5 words in our text box, this isn't going to chage
+to anything higher easily. So go ahead and update the initial `text` state variable in the constructor
 of the `ReactReadingTime` component to something really, really long, and you
 should see the estimated reading time jump up when the page loads.
 
