@@ -1,13 +1,14 @@
 # Component constructors and state
 
-In React, props are immutable. Meaning you can't change the value of the props
-once the component is created. So how do we got about creating UIs
-that change? We use state. State is what represents what your application
-UI looks like at any given moment. We define the initial state of our component
-inside the constructor. What's a constructor?!?!?! It's the "initialize"
-function for the class. Any time a new instance of the class is created, the
-constructor is called and passed in any properties that are given during
-initialization.
+In React, props are immutable. Meaning a component can't change it's own
+props, they can only change when a parent component passes down new ones.
+So how do we got about creating UIs that change? We use state. State is
+what represents what your application UI looks like at any given moment.
+We define the initial state of our component inside the constructor.
+What's a constructor?!?!?! It's the "initialize" function for the class.
+Any time a new instance of the class is created, the constructor is called
+and passed in any properties that are given during initialization.
+
 ```es6
 export default class Component extends React.Component {
   constructor(props) {
