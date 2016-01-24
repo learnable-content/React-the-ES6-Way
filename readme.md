@@ -6,7 +6,7 @@ to grab the DOM node where the article lives. This works for our use case, but
 other users may want to use a different selector. What we'll want to do is
 add a prop for this, so that it can be defined. Let's refactor our `ReadingTime`
 component to allow this.
-
+[INVALID]
 First, we'll add it to the `propTypes`:
 ```es6
 static propTypes = {
@@ -86,6 +86,7 @@ us to have some static props that we need to use in our component, but still
 allow other developers to pass in arbitrary props and they will end up on the
 `div`. Pretty awesome! I also used the `textColor` prop to set the text color
 in our widget.
+[/INVALID]
 
 That's it! We've finished our whirlwind tour of React, and you should now be
 able to go out into the world and write some amazing ReactJS applications!
