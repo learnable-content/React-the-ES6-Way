@@ -37,7 +37,7 @@ componentWillMount() {
 
 componentWillReceiveProps(nextProps) {
   this.updateReadingTime(nextProps);
-};
+}
 
 updateReadingTime(props) {
   const words = this.countWords(props.text);
@@ -92,9 +92,7 @@ to anything higher easily. So go ahead and update the initial `text` state varia
 of the `ReactReadingTime` component to something really, really long, and you
 should see the estimated reading time jump up when the page loads.
 
-If you've done everything right it should work! You won't even see that initial
-value of 0 on the page (although it is actually rendered initially) because
-all of React's updating happens so very fast.
+If you've done everything right it should work!
 
 ## Next lesson...
 
