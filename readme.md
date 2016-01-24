@@ -34,7 +34,7 @@ $ mkdir react-reading-time
 ```
 
 By the way, we'll be making a small reusable React component in this tutorial
-that will show estimated reading time for an atricle. Neat eh?
+that will show estimated reading time for an article. Neat eh?
 
 Now let's `cd` into that directory and create a boilerplate `package.json` file:
 ```bash
@@ -71,7 +71,7 @@ Webpack also provides a development server.
 
 With the development server our assets will be `hot-reloading`, which means
 any changes we make to our included JavaScript or CSS files will be automatically
-compiled, updatedm in the bundle, and injected into the existing browser tab without
+compiled, updated in the bundle, and injected into the existing browser tab without
 us having to reload to see our changes. Now THAT is awesome stuff.
 
 Let's begin by installing Webpack. We will be installing Webpack globally
@@ -103,7 +103,7 @@ $ npm install --save-dev babel babel-core babel-loader
 We'll also need to install the babel preset modules so it knows how to
 transpile all of our code:
 ```bash
-$ npm install -s-ave-dev babel-preset-es2015 babel-preset-react babel-preset-stage-0
+$ npm install -save-dev babel-preset-es2015 babel-preset-react babel-preset-stage-0
 ```
 
 Great! Babel and all of the dependencies related to Babel have been installed.
