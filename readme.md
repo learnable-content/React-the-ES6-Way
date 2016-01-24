@@ -17,10 +17,9 @@ space and counts how many words there are.
 
 ## Component lifecycles
 
-[FIX]
 The next thing we need to do is estimate what the reading time is going to be
 when the component mounts. We *could* execute that code in the constructor of
-the component, but if we did that, the component would not but properly updated
+the component, but if we did that, the component would not be properly updated
 when it received new props from the parent component. We're going to use React's
 lifecycle hooks to run this code any time the component receives props. Our
 component is going to receive new props any time the `textarea` on the parent
