@@ -95,7 +95,8 @@ import ReadingTime from '../src/reading-time';
 
 Ok now let's add this component to our view. We'll also add some classes,
 a `textarea` for writing an article and some default text to put into the `textarea`.
-Let's just rewrite the entire `render` function like this:
+Let's just rewrite the entire component:
+
 ```es6
 constructor(props) {
   super(props);
