@@ -1,82 +1,72 @@
-# Event Handlers
+# Refactoring and JSX Spread Operators
 
-[INVALID]
-So far we've built our little app to count the number of words in an existing
-article and display that in our widget. This works, but isn't very exciting
-and doesn't respond to any changes on the page. Let's use some event handlers
-to trigger updates on our `ReadingTime` widget. Open up the `ReactReadingTime`
-component and add an `onChange` handler to the `textarea`.
-```es6
-<textarea
-  defaultValue={defaultText}
-  onChange={this.textChanged}
-  className='form-control'
-  style={{ height: '500px', resize: 'none' }}>
-</textarea>
+We're going to add some classes to our component to help make it look just a
+little bit prettier.
+
+If you'll recall from our `ReactReadingTime` component, when we rendered the
+`ReadingTime` widget, we added some classes to it:
+```jsx
+<ReadingTime text={this.state.text} className='col-lg-2 well' />
 ```
 
-We've just updated the textarea to call the component's `textChanged` method any time the
-`textarea` value changes. Ok, so now we need to implement this method. Let's
-add this function at the top of our component:
+But if you inspect the DOM that it actually rendered, these class names are
+nowhere to be found. This is because those class names are just passed into
+our custom component as `this.props.className` and because we didn't do
+anything with them, they just died there.
+
+We can do the following to add these classes to our markup:
 ```es6
-textChanged = () => {
-
-};
-```
-[/INVALID]
-
-## Arrow functions
-
-You may notice some funny looking syntax there. What's with this fat arrow
-business `=>`? Arrow functions are a simplified function added in ES6. They have a
-few benefits, but the one we're counting on here is called "lexical scope". The `this`
-variable in an arrow function will be the context in which the function expression was called,
-not the caller. If you've ever used `this` in an event handler
-and been surprised that it's a DOM node instead of an object, the arrow function
-is what you've been waiting for. In our case `this` is a reference to the component instance.
-
-## Making the component update
-[INVALID]
-Ok, so now we've trapped that `onChange` event, but what do we do with it? We
-need to tell the `ReadingTime` component to update the word count when this
-happens. But how do we communicate with it? React provides a way to do this
-called [`refs`](https://facebook.github.io/react/docs/more-about-refs.html).
-We can add a "reference" to a component, and then access its internal
-methods from the parent component. Let's add a `ref` to the `ReadingTime` component:
-```es6
-<ReadingTime ref='readingTime' className='col-lg-2 well' />
-```
-
-Now that we have a reference to the component, we can tell it to update:
-```es6
-textChanged = () => {
-  this.refs.readingTime.updateReadingTime()
-};
-```
-
-When you add a `ref` to a component, that component is then added to a `refs`
-object on the parent component. We can access it through `this.refs` and
-then the name of the ref. At this point, we have the instance of the element
-and can tell it to do whatever we want! Now we'll need to implement the
-`updateReadingTime` function in the `ReadingTime` component. Go ahead and open
-that file and let's add it:
-```es6
-updateReadingTime = () => {
-  let article = document.querySelector('[data-article]'),
-      text = this.getText(article),
-      readTime = Math.round(this.countWords(text) / this.props.wordsPerMinute)
-
-  this.setState({ readTime: readTime })
+render() {
+  return (
+    <div className={this.props.className}>
+      <p>
+        Estimated read time:<br /><br />
+        <span>{this.state.readTime}</span>
+      </p>
+    </div>
+  );
 }
 ```
-[/INVALID]
 
-That's all we need to do! Now you will be able to happily type away and the widget
-will update automatically! Awesome stuff! Of course, because we need to add
-270 words to make the reading time increase by 1 minute, it will take quite
-a few words to make it update. To make it more responsive go ahead and update
-the default `wordsPerMinute` to something much lower (like 1) and watch it
-update right away. Just make sure you move it back up to 270. :)
+And this will work just fine. The names of the classes in the `className` prop will be
+passed into the `div` and rendered into the DOM. But what if later we want to
+expand this component and add more props? Then we have to add another attribute
+to that `div` to pass the new props in. What if we decide to release this module
+into the wild on npm and the end user wants to add custom attributes to this
+component? That's where JSX spread operators come into play. With spread
+operators we can rewrite that like this:
+```es6
+render() {
+  const {text, ...tags} = this.props;
+
+  return (
+    <div {...tags}>
+      ...
+    </div>
+  );
+}
+```
+
+What's going on there? What we're saying here is to take all the props and
+apply them to our `div`. So if our props looked like this:
+```javascript
+{
+  className: 'foo',
+  name: 'bar'
+}
+```
+
+Then the component would end up looking like this:
+```es6
+<div className='foo' name='bar'></div>
+```
+
+This allows us to pass in any number of arbitrary props to the component that
+we as the module developers may never think of. It also saves a whole lot of
+typing. :) Which makes for developer happiness.
+
+So if you update your code to use those spread operators, you should have a
+nice well drawn around your reading time widget! We're getting there!
 
 Let's update the `ReadingTime` widget to make the output look just a bit nicer:
 ```es6
