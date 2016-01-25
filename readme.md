@@ -9,8 +9,8 @@ look like this:
 
 ```es6
 render() {
-  const {text, ...tags} = this.props;
-  const {readTime} = this.state;
+  const { props } = this;
+  const { readTime } = this.state;
   const minutes = readTime === 1 ? 'minute' : 'minutes';
 
   return (
