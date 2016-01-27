@@ -17,8 +17,7 @@ static defaultProps = {
 ```
 
 Great, now our component is more flexible, because users can pass in a custom
-color! You may have noticed that I added in a bit of destructuring there
-too in order to make accessing our variables easier. Gotta love ES6!!
+color!
 
 Ok, we're are almost there, I just want to add one more piece to make it
 a bit more customizable, and to be able to demonstrate one more neat feature
