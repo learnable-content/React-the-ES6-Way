@@ -23,3 +23,6 @@ further increase your knowledge of React:
   * Implementations of Flux like Alt and Redux
   * The Relay framework for declarative data fetching
 
+I've added a few links in the resources section below that will help you
+continue learning. Thanks for taking this journey with me, and have fun creating
+application using ReactJS!
