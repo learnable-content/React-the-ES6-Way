@@ -1,0 +1,33 @@
+{
+  "name": "ReactJS-the-ES6-Way",
+  "version": "1.0.0",
+  "description": "Congratulations! You've finished the ReactJS the ES6 way course!",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --config ./example/webpack.config.js --hot --port 8881"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/learnable-content/ReactJS-the-ES6-Way.git"
+  },
+  "keywords": [],
+  "author": "Darin Haener <dphaener@gmail.com> (https://github.com/dphaener)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/learnable-content/ReactJS-the-ES6-Way/issues"
+  },
+  "homepage": "https://github.com/learnable-content/ReactJS-the-ES6-Way#readme",
+  "devDependencies": {
+    "babel": "^6.3.26",
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.12.12",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
