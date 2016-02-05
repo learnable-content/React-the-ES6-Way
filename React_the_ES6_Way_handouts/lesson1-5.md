@@ -1,4 +1,4 @@
-![](React_the_ES6_Way_handouts/headings/1.5.png)
+![](headings/1.5.png)
 
 # Application Structure
 
