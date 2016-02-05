@@ -1,4 +1,4 @@
-![](React_the_ES6_Way_handouts/headings/3.3.png)
+![](headings/3.3.png)
 
 # The Virtual DOM
 
