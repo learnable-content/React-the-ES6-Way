@@ -1,4 +1,4 @@
-![](React_the_ES6_Way_handouts/headings/2.1.png)
+![](headings/2.1.png)
 
 # Your first React Component
 
