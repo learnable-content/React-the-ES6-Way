@@ -1,4 +1,4 @@
-![](React_the_ES6_Way_handouts/headings/3.4.png)
+![](headings/3.4.png)
 
 # Finishing the ReadingTime component
 
