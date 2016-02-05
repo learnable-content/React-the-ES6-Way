@@ -1,4 +1,4 @@
-![](React_the_ES6_Way_handouts/headings/1.4.png)
+![](headings/1.4.png)
 
 # Development Environment
 
