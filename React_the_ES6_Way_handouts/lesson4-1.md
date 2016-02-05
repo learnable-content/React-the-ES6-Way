@@ -1,4 +1,4 @@
-![](React_the_ES6_Way_handouts/headings/4.1.png)
+![](headings/4.1.png)
 
 # Refactoring and JSX Spread Operators
 
