@@ -19,11 +19,9 @@ This was a great introduction, but now it's time to get out there and learn even
 * Implementations of Flux like Alt and Redux
 * The Relay framework for declarative data fetching
 
-<<<<<<< HEAD
 I've added a few links in the resources section below that will help you
 continue learning. Thanks for taking this journey with me, and have fun creating
 application using ReactJS!
-
 
 ## Resources
 
@@ -34,6 +32,3 @@ application using ReactJS!
   * Relay - https://facebook.github.io/relay/
   * Cartoon Guide to Relay - https://code-cartoons.com/a-cartoon-intro-to-facebook-s-relay-part-1-3ec1a127bca5#.8lhr6lu2p
 
-=======
-I've added a few links in the resources section below that will help you continue learning. Thanks for taking this journey with me, and have fun creating application using ReactJS!
->>>>>>> f4f3fbab56c70673a0c700f800c784b091c1fef3
