@@ -26,3 +26,14 @@ further increase your knowledge of React:
 I've added a few links in the resources section below that will help you
 continue learning. Thanks for taking this journey with me, and have fun creating
 application using ReactJS!
+
+
+## Resources
+
+  * Flux - https://facebook.github.io/flux/docs/overview.html
+  * Alt - http://alt.js.org/
+  * Redux - http://redux.js.org/
+  * Getting Started with Redux - https://egghead.io/series/getting-started-with-redux
+  * Relay - https://facebook.github.io/relay/
+  * Cartoon Guide to Relay - https://code-cartoons.com/a-cartoon-intro-to-facebook-s-relay-part-1-3ec1a127bca5#.8lhr6lu2p
+
