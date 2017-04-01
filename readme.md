@@ -111,16 +111,15 @@ $ touch webpack.config.js
 Now open up that file and copy the following code in:
 
 ```js
-var webpack = require('webpack');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: {
-    'react-reading-time': [
-      'webpack-dev-server/client?http://localhost:8881/',
-      'webpack/hot/only-dev-server',
-      './example/react-reading-time.jsx'
-    ]
-  },
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8881/',
+    'webpack/hot/only-dev-server',
+    './example/react-reading-time.jsx'
+  ],
   output: {
     path: __dirname,
     filename: "[name].js",
@@ -128,18 +127,25 @@ module.exports = {
     chunkFilename: '[id].chunk.js',
     sourceMapFilename: '[name].map'
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx', '.es6'],
-    modulesDirectories: ['node_modules']
-  },
   module: {
-    loaders: [
-      { test: /\.jsx$|\.es6$|\.js$/, loaders: ['react-hot', 'babel-loader'], exclude: /node_modules/ },
-      { test: /\.scss$|\.css$/, loader: 'style-loader!style!css!sass' }
+    rules: [
+      {
+        test: /\.jsx?$/,
+        use: [
+          'babel-loader',
+        ],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.scss$|\.css$/,
+        use: 'style-loader!style!css!sass'
+      }
     ]
   },
   plugins: [
-    new webpack.NoErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
   devtool: "eval-source-map"
 };
